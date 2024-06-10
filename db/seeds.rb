@@ -1,9 +1,78 @@
-# This file should ensure the existence of records required to run the application in every environment (production,
-# development, test). The code here should be idempotent so that it can be executed at any point in every environment.
-# The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
-#
-# Example:
-#
-#   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
-#     MovieGenre.find_or_create_by!(name: genre_name)
-#   end
+# db/seeds.rb
+
+# Limpar os dados existentes
+Order.destroy_all
+ProductRestriction.destroy_all
+Product.destroy_all
+Restriction.destroy_all
+User.destroy_all
+
+# Criar usuários (estabelecimentos e clientes)
+user1 = User.create!(
+  name: "Healthy Eats",
+  email: "healthyeats@example.com",
+  password: "password",
+  address: "123 Healthy St",
+  restaurant: true
+)
+
+user2 = User.create!(
+  name: "Organic Foods",
+  email: "organicfoods@example.com",
+  password: "password",
+  address: "456 Organic Ave",
+  restaurant: true
+)
+
+user3 = User.create!(
+  name: "John Doe",
+  email: "johndoe@example.com",
+  password: "password",
+  address: "789 Customer Rd",
+  restaurant: false
+)
+
+# Criar restrições alimentares
+gluten_free = Restriction.create!(name: "Gluten Free")
+dairy_free = Restriction.create!(name: "Dairy Free")
+nut_free = Restriction.create!(name: "Nut Free")
+
+# Criar produtos associados aos estabelecimentos
+product1 = Product.create!(
+  name: "Gluten Free Bread",
+  price: 5.99,
+  description: "Delicious gluten-free bread made with almond flour.",
+  user: user1
+)
+
+product2 = Product.create!(
+  name: "Organic Salad",
+  price: 9.99,
+  description: "Fresh organic salad with mixed greens and a lemon vinaigrette.",
+  user: user2
+)
+
+product3 = Product.create!(
+  name: "Dairy Free Yogurt",
+  price: 3.99,
+  description: "Creamy dairy-free yogurt made from coconut milk.",
+  user: user1
+)
+
+# Associar produtos com restrições alimentares
+ProductRestriction.create!(product: product1, restrictions_id: gluten_free.id)
+ProductRestriction.create!(product: product2, restrictions_id: nut_free.id)
+ProductRestriction.create!(product: product3, restrictions_id: dairy_free.id)
+
+# Criar pedidos realizados pelos clientes
+Order.create!(
+  product: product1,
+  user: user3
+)
+
+Order.create!(
+  product: product2,
+  user: user3
+)
+
+puts "Database seeded successfully!"
