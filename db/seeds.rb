@@ -1,13 +1,10 @@
-# db/seeds.rb
-
-# Limpar os dados existentes
 Order.destroy_all
 ProductRestriction.destroy_all
 Product.destroy_all
 Restriction.destroy_all
 User.destroy_all
 
-# Criar usuários (estabelecimentos e clientes)
+
 user1 = User.create!(
   name: "Healthy Eats",
   email: "healthyeats@example.com",
@@ -32,12 +29,10 @@ user3 = User.create!(
   restaurant: false
 )
 
-# Criar restrições alimentares
 gluten_free = Restriction.create!(name: "Gluten Free")
 dairy_free = Restriction.create!(name: "Dairy Free")
 nut_free = Restriction.create!(name: "Nut Free")
 
-# Criar produtos associados aos estabelecimentos
 product1 = Product.create!(
   name: "Gluten Free Bread",
   price: 5.99,
@@ -59,12 +54,12 @@ product3 = Product.create!(
   user: user1
 )
 
-# Associar produtos com restrições alimentares
+
 ProductRestriction.create!(product: product1, restrictions_id: gluten_free.id)
 ProductRestriction.create!(product: product2, restrictions_id: nut_free.id)
 ProductRestriction.create!(product: product3, restrictions_id: dairy_free.id)
 
-# Criar pedidos realizados pelos clientes
+
 Order.create!(
   product: product1,
   user: user3
@@ -75,4 +70,4 @@ Order.create!(
   user: user3
 )
 
-puts "Database seeded successfully!"
+
