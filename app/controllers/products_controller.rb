@@ -5,14 +5,9 @@ class ProductsController < ApplicationController
     @product = Product.new
     authorize @product
   end
-<<<<<<< HEAD
 
   def show
   end
-
-  def create
-=======
->>>>>>> master
 
   def create
     @product = Product.new(product_params)
