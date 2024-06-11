@@ -1,8 +1,7 @@
 <div id="<%= dom_id(restaurant) %>">
-  <p>
-    <strong>Name:</strong>
-    <%= restaurant.name %>
-  </p>
+  <h2>
+    <strong><%= link_to restaurant.name, restaurant_path(restaurant) %></strong>
+  </h2>
 
   <p>
     <strong>Address:</strong>
