@@ -15,8 +15,12 @@ class ProductPolicy < ApplicationPolicy
   def create?
     user.restaurant
   end
+<<<<<<< HEAD
 
   def show?
     true
   end
+=======
+  
+>>>>>>> master
 end
