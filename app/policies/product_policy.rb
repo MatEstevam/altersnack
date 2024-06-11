@@ -20,4 +20,12 @@ class ProductPolicy < ApplicationPolicy
     true
   end
 
+  def edit?
+    user.restaurant
+  end
+
+  def update?
+    user.restaurant
+  end
+
 end

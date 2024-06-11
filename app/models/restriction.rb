@@ -1,5 +1,6 @@
 class Restriction < ApplicationRecord
-  has_many :products
+  has_many :product_restrictions
+  has_many :products, through: :product_restrictions
 
   validates :name, presence: true
 end
