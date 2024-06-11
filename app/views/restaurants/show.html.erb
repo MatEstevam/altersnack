@@ -15,11 +15,11 @@
     <ul>
       <% @restaurant.products.each do |product| %>
         <li>
-          <strong><%= product.name %></strong>: <%= product.description %> - $<%= product.price %>
+          <strong><%= link_to product.name, product_path(product) %></strong>:
+          <%= product.description %> - $<%= product.price %>
         </li>
       <% end %>
     </ul>
+    <%= link_to "Insert new product", new_product_path, class: "btn btn-primary" %>
   </div>
-  <%= link_to "Insert new product", new_product_path, class: "btn btn-primary" %>
-
 </div>

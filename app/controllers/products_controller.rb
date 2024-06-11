@@ -1,11 +1,14 @@
 class ProductsController < ApplicationController
-  #before_action :set_product, only: %i[new edit update destroy]
+  before_action :set_product, only: %i[show edit update destroy]
 
   def new
     @product = Product.new
     authorize @product
   end
-  
+
+  def show
+  end
+
   def create
 
   end
@@ -16,9 +19,10 @@ class ProductsController < ApplicationController
 
   # private
 
-  # def set_product
-  #   @product = User.find(params[:id])
-  # end
+  def set_product
+     @product = Product.find(params[:id])
+     authorize @product
+   end
 
   # def product_params
   #   params.require(:user).permit(:name, :address, :email, :password)
