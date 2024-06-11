@@ -9,6 +9,9 @@ class ProductsController < ApplicationController
   def show
   end
 
+  def edit
+  end
+
   def create
     @product = Product.new(product_params)
     @product.user = current_user
@@ -20,19 +23,27 @@ class ProductsController < ApplicationController
     end
   end
 
-  def edit
-    @product = Product.find(params[:id])
+
+  def update
+    if params[:product][:photos].present?
+      @product.photos.attach(params[:product][:photos])
+    end
+    if @product.update(product_params.except(:photos))
+      redirect_to products_path, notice: 'product was successfully updated.', status: :see_other
+    else
+      render :edit, status: :unprocessable_entity
+    end
   end
 
   private
 
   def set_product
-     @product = Product.find(params[:id])
-     authorize @product
-   end
+    @product = Product.find(params[:id])
+    authorize @product
+  end
 
   def product_params
-   params.require(:product).permit(:name, :price, :description, :restrictions, :photo)
+    params.require(:product).permit(:name, :price, :description, restriction_ids: [], photos: [])
   end
 
 end

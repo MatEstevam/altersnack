@@ -1,9 +1,6 @@
-<div class="container">
-
+<div class="container show-restaurant">
   <div id="<%= dom_id(@restaurant) %>">
-    <h1>
-      <%= @restaurant.name %>
-    </h1>
+    <h1><%= @restaurant.name %></h1>
 
     <p>
       <strong>Address:</strong>
@@ -13,12 +10,26 @@
     <h3>Products</h3>
     <ul>
       <% @restaurant.products.each do |product| %>
-        <li>
-          <strong><%= link_to product.name, product_path(product) %></strong>:
-          <%= product.description %> - $<%= product.price %>
+        <li class="card-product">
+          <%= link_to product_path(product), class: 'card-link' do %>
+            <div class="img">
+              <% if product.photos.attached? %>
+                <% product.photos.each do |photo| %>
+                  <%= image_tag url_for(photo), height: 180, width: 180, crop: :fill, class: 'card-img-top' %>
+                <% end %>
+              <% else %>
+                <%= image_tag 'default-foto.jpg', height: 180, width: 180, crop: :fill, class: 'card-img-top' %>
+              <% end %>
+            </div>
+            <div class="product-info">
+              <strong><%= product.name %></strong>:
+              R$<%= product.price %>
+            </div>
+          <% end %>
         </li>
       <% end %>
     </ul>
+
     <%= link_to "Insert new product", new_product_path, class: "btn btn-primary" %>
   </div>
 </div>
