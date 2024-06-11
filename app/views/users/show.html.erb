@@ -1,0 +1,36 @@
+<div class="container">
+  <% if @user.restaurant %>
+    <h1>Restaurant Profile</h1>
+    <div id="restaurant-profile">
+      <h2>
+        <strong>Restaurant Name:</strong>
+        <%= @user.name %>
+      </h2>
+
+      <p>
+        <strong>Location:</strong>
+        <%= @user.address %>
+      </p>
+
+
+      <%= link_to "View Restaurant", restaurant_path(@user), class: "btn btn-primary" %>
+    </div>
+  <% else %>
+    <h1>User Profile</h1>
+    <div id="user-profile">
+      <h2>
+        <strong>Name:</strong>
+        <%= @user.name %>
+      </h2>
+
+      <p>
+        <strong>Email:</strong>
+        <%= @user.email %>
+      </p>
+
+      <!-- Adicione outras informações do usuário conforme necessário -->
+    </div>
+  <% end %>
+
+  <%= link_to "Back", root_path, class: "btn btn-secondary" %>
+</div>

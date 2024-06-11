@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   root to: "restaurants#index"
 
   # Rotas para restaurantes usando PagesController
+  resources :users, only: [:show]
   resources :restaurants
   resources :products
 
