@@ -1,4 +1,5 @@
 class PagesController < ApplicationController
+  require_dependency 'restaurant'
   skip_before_action :authenticate_user!, only: [:home]
   before_action :set_restaurant, only: %i[show edit update destroy]
 
@@ -6,13 +7,17 @@ class PagesController < ApplicationController
     @restaurants = User.where(restaurant: true)
   end
 
-  def show; end
+  def show
+    @restaurant = Restaurant.find(params[:id])
+    @products = @restaurant.products
+  end
 
   def new
     @restaurant = User.new
   end
 
-  def edit; end
+  def edit
+  end
 
   def create
     @restaurant = User.new(restaurant_params)
@@ -48,3 +53,5 @@ class PagesController < ApplicationController
     params.require(:user).permit(:name, :address, :email, :password)
   end
 end
+
+
