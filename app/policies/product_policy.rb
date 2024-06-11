@@ -15,4 +15,5 @@ class ProductPolicy < ApplicationPolicy
   def create?
     user.restaurant
   end
+  
 end
