@@ -2,10 +2,12 @@ Rails.application.routes.draw do
   devise_for :users
 
   # Definir a página inicial
-  root to: "pages#home"
+  root to: "restaurants#index"
 
   # Rotas para restaurantes usando PagesController
-  resources :restaurants, controller: 'pages', only: [:show]
+  resources :restaurants
+  resources :products
+
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
   # Can be used by load balancers and uptime monitors to verify that the app is live.
   get "up" => "rails/health#show", as: :rails_health_check
