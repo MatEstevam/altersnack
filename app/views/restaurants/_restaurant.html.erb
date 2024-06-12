@@ -1,8 +1,8 @@
-<div class="card-restaurant">
+<div class="card-restaurant" id="<%= dom_id(user) %>">
   <img src="/assets/default-foto-28605996dbfe1462a2cc9335a099ac57f374a955b94a6ff3ceb5954d681b22c8.jpg">
   <div class="card-restaurant-infos">
-    <h2><strong><%= link_to restaurant.name, restaurant_path(restaurant) %></strong></h2>
+    <h2><strong><%= link_to user.name, restaurant_path(user) %></strong></h2>
     <p>
-       <%= restaurant.address %></p>
+       <%= user.address %></p>
   </div>
 </div>

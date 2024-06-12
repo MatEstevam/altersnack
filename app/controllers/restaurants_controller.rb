@@ -1,22 +1,28 @@
 class RestaurantsController < ApplicationController
   skip_before_action :authenticate_user!, only: [:index]
-  before_action :set_restaurant, only: %i[show]
+  before_action :set_restaurant, only: [:show]
 
   def index
-    @restaurants = User.where(restaurant: true)
-    policy_scope(@restaurants)
+    @users = policy_scope(User)
+    if user_signed_in?
+      if current_user.restaurant?
+        redirect_to restaurant_path(current_user)
+        return
+      end
+    else
+      redirect_to new_user_session_path
+    end
   end
 
   def show
-    @restaurant = User.find(params[:id])
-    @products = @restaurant.products
+    @products = @user.products
+    @orders = Order.joins(:product).where(products: { user_id: @user.id })
   end
 
   private
 
   def set_restaurant
-    @restaurant = User.find(params[:id])
-    authorize @restaurant
+    @user = User.find(params[:id])
+    authorize @user
   end
-
 end

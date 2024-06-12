@@ -1,35 +1,38 @@
 <div class="container show-restaurant">
-  <div id="<%= dom_id(@restaurant) %>">
-    <h1><%= @restaurant.name %></h1>
+  <div id="<%= dom_id(@user) %>">
+  <div class="rest-info">
+    <h1><%= @user.name %></h1>
 
     <p>
       <strong>Address:</strong>
-      <%= @restaurant.address %>
+      <%= @user.address %>
     </p>
-
     <h3>Products</h3>
+  </div>
     <ul>
-      <% @restaurant.products.each do |product| %>
-        <li class="card-product">
+      <% @products.each do |product| %>
+        <li>
+          <div class="card">
           <%= link_to product_path(product), class: 'card-link' do %>
-            <div class="img">
-              <% if product.photos.attached? %>
-                <% product.photos.each do |photo| %>
-                  <%= image_tag url_for(photo), height: 180, width: 180, crop: :fill, class: 'card-img-top' %>
-                <% end %>
+            <div>
+              <% if product.photo.attached? %>
+                  <%= image_tag url_for(product.photo), height: 180, width: 180, crop: :fill, class: 'card-img-top' %>
               <% else %>
                 <%= image_tag 'default-foto.jpg', height: 180, width: 180, crop: :fill, class: 'card-img-top' %>
               <% end %>
             </div>
             <div class="product-info">
-              <strong><%= product.name %></strong>:
+              <strong><%= product.name %></strong>
               R$<%= product.price %>
             </div>
           <% end %>
         </li>
       <% end %>
     </ul>
+  </div>
 
-    <%= link_to "Insert new product", new_product_path, class: "btn btn-primary" %>
+    <% if policy(@user).create? %>
+      <%= link_to "Insert new product", new_product_path, class: "btn btn-primary" %>
+    <% end %>
   </div>
 </div>
