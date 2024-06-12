@@ -1,15 +1,15 @@
 <div class="container show-restaurant">
-  <div id="<%= dom_id(@restaurant) %>">
-    <h1><%= @restaurant.name %></h1>
+  <div id="<%= dom_id(@user) %>">
+    <h1><%= @user.name %></h1>
 
     <p>
       <strong>Address:</strong>
-      <%= @restaurant.address %>
+      <%= @user.address %>
     </p>
 
     <h3>Products</h3>
     <ul>
-      <% @restaurant.products.each do |product| %>
+      <% @products.each do |product| %>
         <li class="card-product">
           <%= link_to product_path(product), class: 'card-link' do %>
             <div class="img">
@@ -30,6 +30,8 @@
       <% end %>
     </ul>
 
-    <%= link_to "Insert new product", new_product_path, class: "btn btn-primary" %>
+    <% if policy(@user).create? %>
+      <%= link_to "Insert new product", new_product_path, class: "btn btn-primary" %>
+    <% end %>
   </div>
 </div>

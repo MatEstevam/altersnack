@@ -8,11 +8,16 @@ class UserPolicy < ApplicationPolicy
   class Scope < ApplicationPolicy::Scope
     # NOTE: Be explicit about which records you allow access to!
     def resolve
-      scope.all
+      scope.where(restaurant: true)
     end
   end
 
   def show?
-    record.restaurant
+    true
   end
+
+  def create?
+    user.restaurant?
+  end
+
 end
