@@ -4,7 +4,7 @@ class RestaurantsController < ApplicationController
 
   def index
     @users = policy_scope(User)
-    if current_user.restaurant?
+    if current_user&.restaurant?
       redirect_to restaurant_path(current_user)
       return
     end
@@ -12,6 +12,7 @@ class RestaurantsController < ApplicationController
 
   def show
     @products = @user.products
+    @orders = Order.joins(:product).where(products: { user_id: @user.id })
   end
 
   private
@@ -20,5 +21,4 @@ class RestaurantsController < ApplicationController
     @user = User.find(params[:id])
     authorize @user
   end
-
 end
