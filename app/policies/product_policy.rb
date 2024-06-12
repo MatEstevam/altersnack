@@ -28,4 +28,7 @@ class ProductPolicy < ApplicationPolicy
     user.restaurant?
   end
 
+  def buy?
+    !user.restaurant?
+  end
 end
