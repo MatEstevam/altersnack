@@ -1,10 +1,8 @@
-<div id="<%= dom_id(restaurant) %>">
-  <h3>
-    <strong><%= link_to restaurant.name, restaurant_path(restaurant) %></strong>
-  </h3>
-
-  <p>
-    <strong>Address:</strong>
-    <%= restaurant.address %>
-  </p>
+<div class="card-restaurant">
+  <img src="/assets/default-foto-28605996dbfe1462a2cc9335a099ac57f374a955b94a6ff3ceb5954d681b22c8.jpg">
+  <div class="card-restaurant-infos">
+    <h2><strong><%= link_to restaurant.name, restaurant_path(restaurant) %></strong></h2>
+    <p>
+       <%= restaurant.address %></p>
+  </div>
 </div>
