@@ -1,0 +1,60 @@
+.show-restaurant {
+  background-color: #ebd5ce;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #8E716A;
+
+
+  ul {
+    list-style-type: none;
+    padding: 0;
+
+    li {
+      margin-bottom: 20px;
+      padding: 10px;
+      background-color: #f9f3f1;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      width: 300px;
+      max-width: 100%;
+
+
+      .img {
+        height: 180px;
+        width: 100%;
+        max-height: 180px;
+        border-radius: 8px 8px 0 0;
+        overflow: hidden;
+      }
+
+      .product-info {
+        padding: 15px;
+        width: 100%;
+        text-align: center;
+        color: #8E716A;
+
+
+        h3 {
+          margin-bottom: 10px;
+
+        }
+
+        p {
+          margin-bottom: 5px;
+
+        }
+      }
+    }
+  }
+
+  .btn-primary {
+    margin-top: 20px;
+  }
+}

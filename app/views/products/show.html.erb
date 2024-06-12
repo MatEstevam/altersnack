@@ -1,0 +1,26 @@
+<div class="container show-product">
+  <div class="card">
+    <% if @product.photos.attached? %>
+      <%= image_tag url_for(@product.photos.first), height: 180, width: 180, crop: :fill, class: 'card-img' %>
+    <% else %>
+      <%= image_tag 'default-foto.jpg', height: 180, width: 180, crop: :fill, class: 'card-img' %>
+    <% end %>
+    <div class="card-info">
+      <h1><%= @product.name %></h1>
+      <p>
+        <%= @product.description %>
+      </p>
+
+      <p>
+        <strong>R<%= number_to_currency(@product.price) %></strong>
+      </p>
+    </div>
+  </div>
+
+    <% if user_signed_in? && @product.user == current_user %>
+      <%= link_to 'Edit', edit_product_path(@product), class: 'btn btn-primary' %> |
+      <%= link_to 'Delete', product_path(@product), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
+    <% end %>
+
+    <%= link_to 'Back to Restaurant', restaurant_path(@product.user), class: 'btn btn-secondary' %>
+</div>

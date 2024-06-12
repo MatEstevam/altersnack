@@ -1,0 +1,27 @@
+.show-product {
+  background-color: #ebd5ce;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  .card{
+    background-color: #f9f3f1;
+    border-radius: 8px;
+    .card-img {
+      height: 180px;
+      width: 100%;
+      max-height: 180px;
+      border-radius: 4px 4px 0 0;
+    }
+    .card-info{
+      color: #8E716A;
+      margin: 8px;
+    }
+  }
+
+  .btn-primary {
+    margin-top: 20px;
+  }
+}
