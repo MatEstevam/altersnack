@@ -29,10 +29,16 @@ class ProductsController < ApplicationController
       @product.photo.attach(params[:product][:photo])
     end
     if @product.update(product_params.except(:photo, :restrictions))
-      redirect_to products_path, notice: 'product was successfully updated.', status: :see_other
+      redirect_to restaurant_path(current_user), notice: 'product was successfully updated.', status: :see_other
     else
       render :edit, status: :unprocessable_entity
     end
+  end
+
+  def destroy
+    raise
+    @product.destroy
+    redirect_to products_path, notice: 'Product was successfully destroyed.', status: :see_other
   end
 
   private
