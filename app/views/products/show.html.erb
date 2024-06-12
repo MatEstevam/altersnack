@@ -21,8 +21,10 @@
     </p>
   </div>
   </div>
-
   <div class="links">
+    <% if !current_user.restaurant? %>
+      <%= button_to 'Comprar', buy_product_path(@product), method: :post %>
+    <% end %>
     <% if policy(@product).edit? %>
       <%= link_to edit_product_path(@product), class: 'btn btn-primary' do %>
         <i class="fas fa-solid fa-pen-to-square"></i> Edit

@@ -16,6 +16,7 @@ class RestaurantsController < ApplicationController
 
   def show
     @products = @user.products
+    @orders = Order.joins(:product).where(products: { user_id: @user.id })
   end
 
   private
@@ -24,5 +25,4 @@ class RestaurantsController < ApplicationController
     @user = User.find(params[:id])
     authorize @user
   end
-
 end

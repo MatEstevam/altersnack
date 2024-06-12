@@ -4,6 +4,12 @@ class UsersController < ApplicationController
   before_action :authorize_user, only: [:show]
 
   def show
+    @user = User.find(params[:id])
+    if @user.restaurant
+      @orders = Order.joins(:product).where(products: { user_id: @user.id })
+    else
+      @orders = @user.orders.includes(:product)
+    end
     authorize @user
   end
 
