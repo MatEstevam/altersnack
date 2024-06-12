@@ -13,7 +13,7 @@ class ProductPolicy < ApplicationPolicy
   end
 
   def create?
-    user.restaurant
+    user.restaurant?
   end
 
   def show?
@@ -21,11 +21,11 @@ class ProductPolicy < ApplicationPolicy
   end
 
   def edit?
-    user.restaurant
+    user.restaurant?
   end
 
   def update?
-    user.restaurant
+    user.restaurant?
   end
 
   def buy?

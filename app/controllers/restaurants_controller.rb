@@ -4,9 +4,13 @@ class RestaurantsController < ApplicationController
 
   def index
     @users = policy_scope(User)
-    if current_user&.restaurant?
-      redirect_to restaurant_path(current_user)
-      return
+    if user_signed_in?
+      if current_user.restaurant?
+        redirect_to restaurant_path(current_user)
+        return
+      end
+    else
+      redirect_to new_user_session_path
     end
   end
 
