@@ -19,6 +19,16 @@
       <strong>Price:</strong>
       <%= number_to_currency(@product.price) %>
     </p>
+
+    <p>
+      <strong>Restrictions:</strong>
+      <ul>
+        <% @product.restrictions.each do |restriction| %>
+          <li><%= restriction.name %></li>
+        <% end %>
+      </ul>
+    </p>
+
   </div>
   </div>
   <div class="links">
@@ -33,11 +43,13 @@
       <%= link_to product_path(@product), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' do %>
         <i class="fas fa-trash"></i> Delete
       <% end %>
+
     <% end %>
 
     <%= link_to restaurant_path(@product.user), class: 'btn btn-secondary' do %>
       <i class="fas fa-arrow-left"></i> Back
     <% end %>
+
   </div>
 
 </div>
