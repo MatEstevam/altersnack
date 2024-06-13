@@ -1,14 +1,35 @@
 class OrdersController < ApplicationController
   before_action :authenticate_user!
+  before_action :set_cart, only: [:new, :create]
+
+  def new
+    @order = Order.new
+    authorize @order
+  end
 
   def create
-    @product = Product.find(params[:product_id])
-    @order = Order.new(product: @product, user: current_user)
+    @order = Order.new(user: current_user)
+    authorize @order
+    current_user.cart.cart_items.each do |item|
+      @order.order_items.build(product: item.product, quantity: item.quantity, price: item.product.price)
+    end
 
     if @order.save
-      redirect_to restaurant_path(@product.user), notice: 'Compra realizada com sucesso!'
+      current_user.cart.cart_items.destroy_all
+      redirect_to root_path, notice: 'Order placed successfully!'
     else
-      redirect_to product_path(@product), alert: 'Erro ao realizar a compra.'
+      render :new
     end
+  end
+
+  def show
+    @order = Order.find(params[:id])
+    authorize @order
+  end
+
+  private
+
+  def set_cart
+    @cart = current_user.cart
   end
 end

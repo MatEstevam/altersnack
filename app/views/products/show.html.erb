@@ -1,24 +1,24 @@
 <div class="container show-product">
   <div class="card">
-  <div class="card-photo">
-    <% if @product.photo.attached? %>
-      <%= image_tag url_for(@product.photo), height: 180, width: 180, crop: :fill, class: 'card-img-top' %>
-    <% else %>
-      <%= image_tag 'default-foto.jpg', height: 180, width: 180, crop: :fill, class: 'card-img-top' %>
-    <% end %>
-  </div>
-  <div class="card-info">
-    <h1><%= @product.name %></h1>
+    <div class="card-photo">
+      <% if @product.photo.attached? %>
+        <%= image_tag url_for(@product.photo), height: 180, width: 180, crop: :fill, class: 'card-img-top' %>
+      <% else %>
+        <%= image_tag 'default-foto.jpg', height: 180, width: 180, crop: :fill, class: 'card-img-top' %>
+      <% end %>
+    </div>
+    <div class="card-info">
+      <h1><%= @product.name %></h1>
 
-    <p>
-      <strong>Description:</strong>
-      <%= @product.description %>
-    </p>
+      <p>
+        <strong>Description:</strong>
+        <%= @product.description %>
+      </p>
 
-    <p>
-      <strong>Price:</strong>
-      <%= number_to_currency(@product.price) %>
-    </p>
+      <p>
+        <strong>Price:</strong>
+        <%= number_to_currency(@product.price) %>
+      </p>
 
     <p>
       <strong>Restrictions:</strong>
@@ -30,29 +30,44 @@
     </p>
 
   </div>
+      <p>
+        <strong>Restrictions:</strong>
+        <ul>
+          <% @product.restrictions.each do |restriction| %>
+            <li><%= restriction.name %></li>
+          <% end %>
+        </ul>
+      </p>
+    </div>
   </div>
   <div class="links">
     <% if !current_user.restaurant? %>
-      <%= button_to 'Comprar', buy_product_path(@product), method: :post %>
+      <%= form_with url: add_to_cart_product_path(@product), method: :post, local: true do |form| %>
+        <div class="form-group">
+          <%= form.label :quantity, "Quantity" %>
+          <%= form.number_field :quantity, value: 1, min: 1, class: "form-control" %>
+        </div>
+        <%= form.submit 'Add to Cart', class: 'btn btn-primary' %>
+      <% end %>
     <% end %>
     <% if policy(@product).edit? %>
       <%= link_to edit_product_path(@product), class: 'btn btn-primary' do %>
         <i class="fas fa-solid fa-pen-to-square"></i> Edit
       <% end %>
-      
-    <%= form_with(url: product_path(@product), method: :delete, data: { confirm: 'Are you sure?' }) do |form| %>
-      <%= form.button type: :submit, class: 'btn btn-danger' do %>
+
+      <%= link_to product_path(@product), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' do %>
         <i class="fas fa-trash"></i> Delete
       <% end %>
     <% end %>
 
+      <% end %>
     <% end %>
 
 
     <%= link_to restaurant_path(@product.user), class: 'btn btn-secondary' do %>
       <i class="fas fa-arrow-left"></i> Back
     <% end %>
-
   </div>
+</div>
 
 </div>
