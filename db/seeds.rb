@@ -32,6 +32,12 @@ user3 = User.create!(
 gluten_free = Restriction.create!(name: "Gluten Free")
 dairy_free = Restriction.create!(name: "Dairy Free")
 nut_free = Restriction.create!(name: "Nut Free")
+soy_free = Restriction.create!(name: "Soy Free")
+vegetarian = Restriction.create!(name: "Vegetarian")
+vegan = Restriction.create!(name: "Vegan")
+all = Restriction.create!(name: "All")
+other = Restriction.create!(name: "Other")
+
 
 product1 = Product.create!(
   name: "Gluten Free Bread",

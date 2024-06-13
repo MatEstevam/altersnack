@@ -27,11 +27,26 @@ class ProductsController < ApplicationController
     if params[:product][:photos].present?
       @product.photos.attach(params[:product][:photos])
     end
-    if @product.update(product_params.except(:photo, :restrictions))
+    if @product.update(product_params.except(:photo, :restriction_ids))
       redirect_to restaurant_path(current_user), notice: 'product was successfully updated.', status: :see_other
     else
       render :edit, status: :unprocessable_entity
     end
+  end
+
+  def buy
+    @order = Order.new(product: @product, user: current_user)
+    if @order.save
+      redirect_to restaurant_path(@product.user), notice: 'Compra realizada com sucesso!'
+    else
+      redirect_to product_path(@product), alert: 'Erro ao realizar a compra.'
+    end
+  end
+
+  def destroy
+    @product.product_restrictions.destroy_all
+    @product.destroy
+    redirect_to root_path, notice: 'Product was successfully destroyed.', status: :see_other
   end
 
   private
