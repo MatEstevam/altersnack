@@ -1,5 +1,5 @@
 class ProductsController < ApplicationController
-  before_action :set_product, only: %i[show edit update destroy buy]
+  before_action :set_product, only: %i[show edit update destroy]
 
   def new
     @product = Product.new
@@ -24,22 +24,13 @@ class ProductsController < ApplicationController
   end
 
   def update
-    if params[:product][:photo].present?
-      @product.photo.attach(params[:product][:photo])
+    if params[:product][:photos].present?
+      @product.photos.attach(params[:product][:photos])
     end
-    if @product.update(product_params.except(:photo, :restrictions))
-      redirect_to products_path, notice: 'product was successfully updated.', status: :see_other
+    if @product.update(product_params.except(:photos))
+      redirect_to products_path, notice: 'Product was successfully updated.', status: :see_other
     else
       render :edit, status: :unprocessable_entity
-    end
-  end
-
-  def buy
-    @order = Order.new(product: @product, user: current_user)
-    if @order.save
-      redirect_to restaurant_path(@product.user), notice: 'Compra realizada com sucesso!'
-    else
-      redirect_to product_path(@product), alert: 'Erro ao realizar a compra.'
     end
   end
 
@@ -51,6 +42,6 @@ class ProductsController < ApplicationController
   end
 
   def product_params
-    params.require(:product).permit(:name, :price, :photo, :description, restriction_ids: [])
+    params.require(:product).permit(:name, :price, :description, restriction_ids: [], photos: [])
   end
 end
