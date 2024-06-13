@@ -20,6 +20,10 @@ class CartPolicy < ApplicationPolicy
     show?
   end
 
+  def update_quantity?
+    user.present?
+  end
+
   def remove_product?
     show?
   end
