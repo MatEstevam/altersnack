@@ -27,7 +27,7 @@ class ProductsController < ApplicationController
     if params[:product][:photo].present?
       @product.photo.attach(params[:product][:photo])
     end
-    if @product.update(product_params.except(:photo, :restrictions))
+    if @product.update(product_params.except(:photo, :restriction_ids))
       redirect_to restaurant_path(current_user), notice: 'product was successfully updated.', status: :see_other
     else
       render :edit, status: :unprocessable_entity
@@ -44,9 +44,9 @@ class ProductsController < ApplicationController
   end
 
   def destroy
-    raise
+    @product.product_restrictions.destroy_all
     @product.destroy
-    redirect_to products_path, notice: 'Product was successfully destroyed.', status: :see_other
+    redirect_to root_path, notice: 'Product was successfully destroyed.', status: :see_other
   end
 
   private
