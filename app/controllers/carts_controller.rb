@@ -11,11 +11,22 @@ class CartsController < ApplicationController
     product = Product.find(params[:id])
     quantity = params[:quantity].to_i
     @cart_item = @cart.cart_items.find_or_initialize_by(product: product)
-    @cart_item.quantity = (@cart_item.quantity || 0) + quantity
+    @cart_item.quantity ||= 0
+    @cart_item.quantity += quantity
     if @cart_item.save
       redirect_to restaurant_path(product.user), notice: 'Produto adicionado ao carrinho.'
     else
       redirect_to product_path(product), alert: 'Não foi possível adicionar o produto ao carrinho.'
+    end
+  end
+
+  def update_quantity
+    @cart_item = @cart.cart_items.find(params[:id])
+    authorize @cart_item.cart, :update_quantity?
+    @cart_item.update(quantity: params[:cart_item][:quantity].to_i)
+    respond_to do |format|
+      format.html { redirect_to cart_path }
+      format.js
     end
   end
 

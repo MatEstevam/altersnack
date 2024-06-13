@@ -12,28 +12,7 @@
         <%= @user.address %>
       </p>
 
-      <h2>Produtos</h2>
-      <ul>
-        <% @user.products.each do |product| %>
-          <li><%= link_to product.name, product_path(product) %> - <%= number_to_currency(product.price) %></li>
-        <% end %>
-      </ul>
-
-      <h2>Vendas Realizadas</h2>
-      <ul>
-        <% @orders.each do |order| %>
-          <% if order.product.present? %>
-            <li>
-              Produto: <%= link_to order.product.name, product_path(order.product) %> -
-              Preço: <%= number_to_currency(order.product.price) %> -
-              Vendido para: <%= order.user.name %> -
-              Data: <%= l(order.created_at, format: :short) %>
-            </li>
-          <% else %>
-            <li>Produto não disponível</li>
-          <% end %>
-        <% end %>
-      </ul>
+      <%= link_to "View Restaurant", restaurant_path(@user), class: "btn btn-primary" %>
     </div>
   <% else %>
     <h1>User Profile</h1>
@@ -48,22 +27,24 @@
         <%= @user.email %>
       </p>
 
-      <h2>Compras Realizadas</h2>
-      <ul>
-        <% @orders.each do |order| %>
-          <% if order.product.present? %>
-            <li>
-              Produto: <%= link_to order.product.name, product_path(order.product) %> -
-              Preço: <%= number_to_currency(order.product.price) %> -
-              Comprado em: <%= l(order.created_at, format: :short) %>
-            </li>
-          <% else %>
-            <li>Produto não disponível</li>
-          <% end %>
-        <% end %>
-      </ul>
+      <!-- Adicione outras informações do usuário conforme necessário -->
     </div>
   <% end %>
 
+  <h2>Compras Realizadas</h2>
+  <ul>
+    <% @user.orders.each do |order| %>
+      <% order.order_items.each do |item| %>
+        <li>
+          Produto: <%= link_to item.product.name, product_path(item.product) %> -
+          Preço: <%= number_to_currency(item.product.price) %> -
+          Quantidade: <%= item.quantity %> -
+          Total: <%= number_to_currency(item.total_price) %> -
+          Comprado em: <%= l(order.created_at, format: :short) %>
+        </li>
+      <% end %>
+    <% end %>
+  </ul>
+
   <%= link_to "Back", root_path, class: "btn btn-secondary" %>
-</div>
+</div

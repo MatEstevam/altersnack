@@ -1,7 +1,41 @@
-<h1>Finalizar Compra</h1>
+<div class="container">
+  <h1>Confirme seu Pedido</h1>
 
-<%= form_with(model: @order, local: true) do |form| %>
-  <div class="actions">
-    <%= form.submit 'Finalizar Pedido', class: 'btn btn-primary' %>
-  </div>
-<% end %>
+  <% if @cart.cart_items.any? %>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Produto</th>
+          <th>Quantidade</th>
+          <th>Preço</th>
+          <th>Total</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @cart.cart_items.each do |item| %>
+          <tr>
+            <td><%= item.product.name %></td>
+            <td><%= item.quantity %></td>
+            <td><%= number_to_currency(item.product.price) %></td>
+            <td><%= number_to_currency(item.total_price) %></td>
+          </tr>
+        <% end %>
+      </tbody>
+      <tfoot>
+        <tr>
+          <td colspan="3">Total:</td>
+          <td><%= number_to_currency(@cart.total_price) %></td>
+        </tr>
+      </tfoot>
+    </table>
+
+    <%= form_with(model: @order, local: true) do |form| %>
+      <div class="actions">
+        <%= form.submit "Finalizar Compra", class: "btn btn-primary" %>
+      </div>
+    <% end %>
+  <% else %>
+    <p>Seu carrinho está vazio.</p>
+    <%= link_to 'Voltar ao Restaurante', restaurants_path, class: 'btn btn-secondary' %>
+  <% end %>
+</div>

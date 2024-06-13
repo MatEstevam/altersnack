@@ -11,7 +11,15 @@ class OrderPolicy < ApplicationPolicy
     #   scope.all
     # end
   end
+  def new?
+    user.present?
+  end
+
   def create?
-    user.present? && !user.restaurant?
+    user.present?
+  end
+
+  def show?
+    user.present? && record.user == user
   end
 end
