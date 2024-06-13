@@ -7,6 +7,17 @@
       <strong>Address:</strong>
       <%= @user.address %>
     </p>
+
+
+  <div class="filters">
+    <%= link_to "Gluten Free", restaurant_path(filter: "gluten_free"), class: 'btn btn-circle mr-2' %>
+    <%= link_to "Dairy Free", restaurant_path(filter: "dairy_free"), class: 'btn btn-circle mr-2' %>
+    <%= link_to "Nut Free", restaurant_path(filter: "nut_free"), class: 'btn btn-circle mr-2' %>
+    <%= link_to "Soy Free", restaurant_path(filter: "soy_free"), class: 'btn btn-circle mr-2' %>
+    <%= link_to "Vegetarian", restaurant_path(filter: "vegetarian"), class: 'btn btn-circle mr-2' %>
+    <%= link_to "Vegan", restaurant_path(filter: "vegan"), class: 'btn btn-circle mr-2' %>
+  </div>
+
     <h3>Products</h3>
   </div>
     <ul>
@@ -23,7 +34,12 @@
             </div>
             <div class="product-info">
               <strong><%= product.name %></strong>
-              R$<%= product.price %>
+              <ul>
+                <% product.restrictions.each do |restriction|%>
+                  <li><%= restriction.name %></li>
+                <% end %>
+              </ul>
+              <strong>R$<%= product.price %></strong>
             </div>
           <% end %>
         </li>
