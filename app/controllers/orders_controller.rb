@@ -16,7 +16,7 @@ class OrdersController < ApplicationController
 
     if @order.save
       current_user.cart.cart_items.destroy_all
-      redirect_to root_path, notice: 'Pedido realizado com sucesso!'
+      redirect_to root_path, notice: 'Order placed successfully!'
     else
       render :new
     end

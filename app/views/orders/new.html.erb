@@ -1,13 +1,13 @@
 <div class="container">
-  <h1>Confirme seu Pedido</h1>
+  <h1>Confirm Your Order</h1>
 
   <% if @cart.cart_items.any? %>
     <table class="table">
       <thead>
         <tr>
-          <th>Produto</th>
-          <th>Quantidade</th>
-          <th>Preço</th>
+          <th>Product</th>
+          <th>Quantity</th>
+          <th>Price</th>
           <th>Total</th>
         </tr>
       </thead>
@@ -31,11 +31,11 @@
 
     <%= form_with(model: @order, local: true) do |form| %>
       <div class="actions">
-        <%= form.submit "Finalizar Compra", class: "btn btn-primary" %>
+        <%= form.submit "Place Order", class: "btn btn-primary" %>
       </div>
     <% end %>
   <% else %>
-    <p>Seu carrinho está vazio.</p>
-    <%= link_to 'Voltar ao Restaurante', restaurants_path, class: 'btn btn-secondary' %>
+    <p>Your cart is empty.</p>
+    <%= link_to 'Back to Restaurant', restaurants_path, class: 'btn btn-secondary' %>
   <% end %>
 </div>
