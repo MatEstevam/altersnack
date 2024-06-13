@@ -10,13 +10,19 @@ class CartsController < ApplicationController
     authorize @cart, :add_product?
     product = Product.find(params[:id])
     quantity = params[:quantity].to_i
+
+    if @cart.cart_items.any? && @cart.cart_items.first.product.user_id != product.user_id
+      redirect_to cart_path, alert: 'You can only add items from one restaurant at a time.'
+      return
+    end
+
     @cart_item = @cart.cart_items.find_or_initialize_by(product: product)
     @cart_item.quantity ||= 0
     @cart_item.quantity += quantity
     if @cart_item.save
       redirect_to restaurant_path(product.user), notice: 'Product added to cart.'
     else
-      redirect_to product_path(product), alert: 'Unable to add product to cart.'
+      redirect_to product_path(product), alert: 'Could not add the product to the cart.'
     end
   end
 
