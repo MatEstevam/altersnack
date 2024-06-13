@@ -1,0 +1,49 @@
+.card-restaurant {
+  overflow: hidden;
+  height: 120px;
+  background: #FDFDFC;
+  box-shadow: 0 0 15px rgba(0,0,0,0.05);
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+  border-radius: 8px;
+  transition: transform 0.2s, box-shadow 0.2s;
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  }
+}
+
+.card-restaurant img {
+  height: 100%;
+  width: 120px;
+  object-fit: cover;
+}
+
+.card-restaurant h2 {
+  font-size: 16px;
+  font-weight: bold;
+  margin: 0;
+  color: #8E716A;
+  font-weight: bolder;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.card-restaurant p {
+  font-size: 12px;
+  line-height: 1.4;
+  opacity: .7;
+  margin-bottom: 0;
+  margin-top: 8px;
+  color: #8E716A;
+}
+
+.card-restaurant .card-restaurant-infos {
+  padding: 16px;
+  justify-content: flex-start;
+}

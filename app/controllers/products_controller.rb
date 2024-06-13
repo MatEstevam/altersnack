@@ -27,8 +27,8 @@ class ProductsController < ApplicationController
     if params[:product][:photos].present?
       @product.photos.attach(params[:product][:photos])
     end
-    if @product.update(product_params.except(:photos))
-      redirect_to products_path, notice: 'Product was successfully updated.', status: :see_other
+    if @product.update(product_params.except(:photo, :restrictions))
+      redirect_to restaurant_path(current_user), notice: 'product was successfully updated.', status: :see_other
     else
       render :edit, status: :unprocessable_entity
     end

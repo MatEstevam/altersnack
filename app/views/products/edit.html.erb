@@ -3,4 +3,8 @@
 
   <%= render "form", product: @product %>
 
+  <br>
+
+  <%= link_to 'Cancel', restaurant_path(@product.user), class: 'btn btn-secondary' %>
+
 </div>

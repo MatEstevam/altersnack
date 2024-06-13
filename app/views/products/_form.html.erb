@@ -1,8 +1,8 @@
-<%= simple_form_for(product) do |f| %>
+<%= simple_form_for(@product) do |f| %>
   <%= f.input :name %>
   <%= f.input :description %>
   <%= f.input :price %>
-  <%= f.input :restrictions, as: :check_boxes, collection: ["Gluten-free", "Dairy-Free", "Nut-Free", "Soy-Free", "Vegetarian", "Vegan", "All", "Other"], label_method: :itself, include_hidden: false %>
+  <%= f.input :restrictions, as: :check_boxes, collection: Restriction.all, label_method: :name, value_method: :id %>
   <%= f.input :photo, as: :file, input_html: { multiple: false } %>
   <%= f.submit 'Submit', class: 'btn btn-primary' %>
 <% end %>
