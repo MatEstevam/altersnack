@@ -1,19 +1,19 @@
 <div class="container show-product">
   <div class="card">
-  <div class="card-photo">
-    <% if @product.photo.attached? %>
-      <%= image_tag url_for(@product.photo), height: 180, width: 180, crop: :fill, class: 'card-img-top' %>
-    <% else %>
-      <%= image_tag 'default-foto.jpg', height: 180, width: 180, crop: :fill, class: 'card-img-top' %>
-    <% end %>
-  </div>
-  <div class="card-info">
-    <h1><%= @product.name %></h1>
+    <div class="card-photo">
+      <% if @product.photo.attached? %>
+        <%= image_tag url_for(@product.photo), height: 180, width: 180, crop: :fill, class: 'card-img-top' %>
+      <% else %>
+        <%= image_tag 'default-foto.jpg', height: 180, width: 180, crop: :fill, class: 'card-img-top' %>
+      <% end %>
+    </div>
+    <div class="card-info">
+      <h1><%= @product.name %></h1>
 
-    <p>
-      <strong>Description:</strong>
-      <%= @product.description %>
-    </p>
+      <p>
+        <strong>Description:</strong>
+        <%= @product.description %>
+      </p>
 
     <p>
       <strong>Price:</strong>
@@ -33,7 +33,13 @@
   </div>
   <div class="links">
     <% if !current_user.restaurant? %>
-      <%= button_to 'Comprar', buy_product_path(@product), method: :post %>
+      <%= form_with url: add_to_cart_product_path(@product), method: :post, local: true do |form| %>
+        <div class="form-group">
+          <%= form.label :quantity, "Quantidade" %>
+          <%= form.number_field :quantity, value: 1, min: 1, class: "form-control" %>
+        </div>
+        <%= form.submit 'Adicionar ao Carrinho', class: 'btn btn-primary' %>
+      <% end %>
     <% end %>
     <% if policy(@product).edit? %>
       <%= link_to edit_product_path(@product), class: 'btn btn-primary' do %>
@@ -51,5 +57,4 @@
     <% end %>
 
   </div>
-
 </div>

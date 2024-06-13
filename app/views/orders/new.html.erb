@@ -1,0 +1,7 @@
+<h1>Finalizar Compra</h1>
+
+<%= form_with(model: @order, local: true) do |form| %>
+  <div class="actions">
+    <%= form.submit 'Finalizar Pedido', class: 'btn btn-primary' %>
+  </div>
+<% end %>

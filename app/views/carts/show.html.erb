@@ -1,0 +1,43 @@
+<div class="container">
+  <h1>Seu Carrinho de Compras</h1>
+
+  <% if @cart.cart_items.any? %>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Produto</th>
+          <th>Quantidade</th>
+          <th>Preço</th>
+          <th>Total</th>
+          <th>Ações</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @cart.cart_items.each do |item| %>
+          <tr>
+            <td><%= item.product.name %></td>
+            <td><%= item.quantity %></td>
+            <td><%= number_to_currency(item.product.price) %></td>
+            <td><%= number_to_currency(item.total_price) %></td>
+            <td>
+              <%= link_to 'Remover', remove_product_cart_path(item), method: :delete, class: 'btn btn-danger' %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+      <tfoot>
+        <tr>
+          <td colspan="3">Total:</td>
+          <td><%= number_to_currency(@cart.total_price) %></td>
+          <td></td>
+        </tr>
+      </tfoot>
+    </table>
+
+    <%= link_to 'Finalizar Compra', new_order_path, class: 'btn btn-primary' %>
+    <%= link_to 'Voltar ao Restaurante', restaurant_path(@cart.cart_items.first.product.user), class: 'btn btn-secondary' %>
+  <% else %>
+    <p>Seu carrinho está vazio.</p>
+    <%= link_to 'Voltar ao Restaurante', restaurants_path, class: 'btn btn-secondary' %>
+  <% end %>
+</div>
