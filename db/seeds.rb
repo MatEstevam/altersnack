@@ -55,9 +55,9 @@ product3 = Product.create!(
 )
 
 
-ProductRestriction.create!(product: product1, restrictions_id: gluten_free.id)
-ProductRestriction.create!(product: product2, restrictions_id: nut_free.id)
-ProductRestriction.create!(product: product3, restrictions_id: dairy_free.id)
+ProductRestriction.create!(product: product1, restriction: gluten_free)
+ProductRestriction.create!(product: product2, restriction: nut_free)
+ProductRestriction.create!(product: product3, restriction: dairy_free)
 
 
 Order.create!(
@@ -69,5 +69,3 @@ Order.create!(
   product: product2,
   user: user3
 )
-
-
