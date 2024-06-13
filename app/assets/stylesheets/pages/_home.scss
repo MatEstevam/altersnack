@@ -1,4 +1,42 @@
-// Specific CSS for your home-page
-body{
+body {
   background-color: #fdfdfc;
+  color: #8E716A;
+}
+
+.filters {
+  display: flex;           /* Define o contêiner como flex */
+  flex-wrap: wrap;         /* Permite que os botões se alinhem em várias linhas, se necessário */
+  justify-content: center; /* Centraliza os botões horizontalmente */
+}
+
+.filters .btn {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  margin: 20px;
+  display: flex;             /* Define o layout do botão como flex */
+  justify-content: center;   /* Centraliza o conteúdo horizontalmente */
+  align-items: center;       /* Centraliza o conteúdo verticalmente */
+  text-align: center;
+}
+
+// Custom button style for pink button
+.btn-circle {
+  background-color: $pink;
+  color: #8E716A;  // Defina a cor do texto conforme necessário
+  border-color: $pink;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  margin: 20px;
+  display: flex;             /* Define o layout do botão como flex */
+  justify-content: center;   /* Centraliza o conteúdo horizontalmente */
+  align-items: center;       /* Centraliza o conteúdo verticalmente */
+  text-align: center;
+
+  &:hover,
+  &:focus {
+    background-color: darken($pink, 10%);
+    border-color: darken($pink, 10%);
+  }
 }

@@ -79,3 +79,5 @@ end
 gem 'ffi', '~> 1.16.3'
 gem "pundit"
 gem "cloudinary"
+gem 'faker'
+
