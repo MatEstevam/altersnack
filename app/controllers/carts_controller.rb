@@ -14,9 +14,9 @@ class CartsController < ApplicationController
     @cart_item.quantity ||= 0
     @cart_item.quantity += quantity
     if @cart_item.save
-      redirect_to restaurant_path(product.user), notice: 'Produto adicionado ao carrinho.'
+      redirect_to restaurant_path(product.user), notice: 'Product added to cart.'
     else
-      redirect_to product_path(product), alert: 'Não foi possível adicionar o produto ao carrinho.'
+      redirect_to product_path(product), alert: 'Unable to add product to cart.'
     end
   end
 
@@ -34,7 +34,7 @@ class CartsController < ApplicationController
     authorize @cart, :remove_product?
     @cart_item = @cart.cart_items.find(params[:id])
     @cart_item.destroy
-    redirect_to cart_path, notice: 'Produto removido do carrinho.'
+    redirect_to cart_path, notice: 'Product removed from cart.'
   end
 
   private
