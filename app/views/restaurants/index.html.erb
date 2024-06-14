@@ -1,15 +1,32 @@
 <div class="container">
-  <h1>Restaurants</h1>
 
-<div class="filters">
-  <%= link_to "Gluten Free", restaurants_path(filter: "gluten_free"), class: 'btn btn-circle mr-2' %>
-  <%= link_to "Dairy Free", restaurants_path(filter: "dairy_free"), class: 'btn btn-circle mr-2' %>
-  <%= link_to "Nut Free", restaurants_path(filter: "nut_free"), class: 'btn btn-circle mr-2' %>
-  <%= link_to "Soy Free", restaurants_path(filter: "soy_free"), class: 'btn btn-circle mr-2' %>
-  <%= link_to "Vegetarian", restaurants_path(filter: "vegetarian"), class: 'btn btn-circle mr-2' %>
-  <%= link_to "Vegan", restaurants_path(filter: "vegan"), class: 'btn btn-circle mr-2' %>
-</div>
+  <div class="items">
+		<div class="item active">
+			<%= link_to "Gluten Free", restaurants_path(filter: "gluten_free"), class: 'btn btn-circle mr-2' %>
+		</div>
+		<div class=" item next">
+			<%= link_to "Dairy Free", restaurants_path(filter: "dairy_free"), class: 'btn btn-circle mr-2' %>
+		</div>
+		<div class="item">
+			<%= link_to "Nut Free", restaurants_path(filter: "nut_free"), class: 'btn btn-circle mr-2' %>
+		</div>
+		<div class="item">
+			<%= link_to "Soy Free", restaurants_path(filter: "soy_free"), class: 'btn btn-circle mr-2' %>
+		</div>
+		<div class="item">
+			<%= link_to "Vegetarian", restaurants_path(filter: "vegetarian"), class: 'btn btn-circle mr-2' %>
+		</div>
+    <div class="item prev">
+      <%= link_to "Vegan", restaurants_path(filter: "vegan"), class: 'btn btn-circle mr-2' %>
+		</div>
 
-
-  <%= render 'list', users: @users %>
+		<div class="button-container">
+			<div class="button"><i class="fas fa-angle-left"></i></div>
+			<div class="button"><i class="fas fa-angle-right"></i></div>
+		</div>
+	</div>
+  <div class="home-content">
+    <h1>Restaurants</h1>
+    <%= render 'list', users: @users %>
+  </div>
 </div>

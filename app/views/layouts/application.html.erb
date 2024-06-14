@@ -2,6 +2,7 @@
 <html>
   <head>
     <title>Altersnack</title>
+    <link rel="stylesheet" href="node_modules/@glidejs/glide/dist/css/glide.core.min.css">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
@@ -11,13 +12,13 @@
   </head>
 
   <body>
-  <%= render "shared/navbar" %>
-  <div class="wrapper">
-    <%= render "shared/flashes" %>
-    <div class="content">
-      <%= yield %>
+    <%= render "shared/navbar" %>
+    <div class="wrapper">
+      <%= render "shared/flashes" %>
+      <div class="content">
+        <%= yield %>
+      </div>
+      <%= render "shared/footer" %>
     </div>
-    <%= render "shared/footer" %>
-  </div>
   </body>
 </html>
