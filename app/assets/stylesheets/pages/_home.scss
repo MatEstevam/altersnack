@@ -1,12 +1,14 @@
 body {
   background-color: #fdfdfc;
   color: #8E716A;
+  overflow: hidden;
 }
 
 .filters {
-  display: flex;           /* Define o contêiner como flex */
-  flex-wrap: wrap;         /* Permite que os botões se alinhem em várias linhas, se necessário */
-  justify-content: center; /* Centraliza os botões horizontalmente */
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+
 }
 
 .filters .btn {
@@ -14,29 +16,118 @@ body {
   height: 120px;
   border-radius: 50%;
   margin: 20px;
-  display: flex;             /* Define o layout do botão como flex */
-  justify-content: center;   /* Centraliza o conteúdo horizontalmente */
-  align-items: center;       /* Centraliza o conteúdo verticalmente */
+  display: flex;
+  justify-content: center;
+  align-items: center;
   text-align: center;
 }
 
-// Custom button style for pink button
+
 .btn-circle {
   background-color: $pink;
-  color: #8E716A;  // Defina a cor do texto conforme necessário
+  color: #8E716A;
   border-color: $pink;
   width: 120px;
   height: 120px;
   border-radius: 50%;
   margin: 20px;
-  display: flex;             /* Define o layout do botão como flex */
-  justify-content: center;   /* Centraliza o conteúdo horizontalmente */
-  align-items: center;       /* Centraliza o conteúdo verticalmente */
+  display: flex;
+  justify-content: center;
+  align-items: center;
   text-align: center;
+  border: none;
 
   &:hover,
   &:focus {
     background-color: darken($pink, 10%);
     border-color: darken($pink, 10%);
   }
+}
+
+
+.items {
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  user-select: none;
+}
+
+.items .item {
+  position: absolute;
+  // top: 50%;
+  // left: 50%;
+  transform: translate(-50%, -50%);
+  //width: 250px;
+  height: 250px;
+  border-radius: 50%;
+  overflow: hidden;
+  transition: all 300ms ease-in-out;
+  z-index: -1;
+  opacity: 0;
+}
+
+.item.active {
+  opacity: 1;
+  //z-index: 99;
+  //box-shadow: 0px 0px 105px -35px rgba(0, 0, 0, 0.75);
+}
+
+.item.prev {
+  z-index: 2;
+  opacity: 0.25;
+  transform: translate(-125%, -50%);
+}
+
+.item.next {
+  z-index: 2;
+  opacity: 0.25;
+  transform: translate(25%, -50%);
+}
+
+.items .button-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 360px;
+  z-index: 100;
+}
+
+.button-container .button {
+  color: #fff;
+  font-size: 32px;
+  cursor: pointer;
+  position: relative;
+  opacity: 0.75;
+  transition: all 300ms ease-in-out;
+}
+
+.button-container .button:hover {
+  opacity: 1;
+}
+
+.button-container .button:before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 50px;
+  height: 50px;
+  background-color: rgba(0, 0, 0, 1);
+  border-radius: 50%;
+  z-index: -99;
+}
+
+.button-container .button:nth-child(1) {
+  float: left;
+}
+
+.button-container .button:nth-child(2) {
+  float: right;
+}
+
+.home-content{
+  margin-top: 30vh;
 }
