@@ -24,8 +24,8 @@ class ProductsController < ApplicationController
   end
 
   def update
-    if params[:product][:photos].present?
-      @product.photos.attach(params[:product][:photos])
+    if params[:product][:photo].present?
+      @product.photo.attach(params[:product][:photo])
     end
     if @product.update(product_params.except(:photo, :restriction_ids))
       redirect_to restaurant_path(current_user), notice: 'product was successfully updated.', status: :see_other
@@ -57,6 +57,6 @@ class ProductsController < ApplicationController
   end
 
   def product_params
-    params.require(:product).permit(:name, :price, :description, restriction_ids: [], photos: [])
+    params.require(:product).permit(:name, :price, :description, restriction_ids: [], photo: [])
   end
 end
