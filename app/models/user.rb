@@ -8,6 +8,7 @@ class User < ApplicationRecord
   validates :email, presence: true, format: { with: URI::MailTo::EMAIL_REGEXP, message: "is not a valid email" }
   validates :address, presence: true
 
+  has_one_attached :photo
   has_one :cart, dependent: :destroy
   has_many :orders, dependent: :destroy
   has_many :products, dependent: :destroy
