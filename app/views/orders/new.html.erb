@@ -23,8 +23,18 @@
       </tbody>
       <tfoot>
         <tr>
-          <td colspan="3">Total:</td>
+          <td colspan="3">Subtotal:</td>
           <td><%= number_to_currency(@cart.total_price) %></td>
+        </tr>
+        <% if @cart.cart_items.first.product.user.delivery_fee %>
+          <tr>
+            <td colspan="3">Delivery Fee:</td>
+            <td><%= number_to_currency(@cart.cart_items.first.product.user.delivery_fee) %></td>
+          </tr>
+        <% end %>
+        <tr>
+          <td colspan="3"><strong>Total:</strong></td>
+          <td><strong><%= number_to_currency(@cart.total_price + (@cart.cart_items.first.product.user.delivery_fee || 0)) %></strong></td>
         </tr>
       </tfoot>
     </table>
@@ -32,7 +42,6 @@
     <%= form_with(model: @order, local: true) do |form| %>
       <div class="actions">
         <%= form.submit "Place Order", class: "btn btn-primary" %>
-        <%= link_to 'Back to Cart', cart_path, class: 'btn btn-secondary' %>
       </div>
     <% end %>
   <% else %>
