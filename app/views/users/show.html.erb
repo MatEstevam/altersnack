@@ -13,11 +13,55 @@
         <%= @user.address %>
       </p>
 
+      <p><%= image_tag @user.photo if @user.photo.attached? %></p>
 
+      <%= link_to "View Restaurant", restaurant_path(@user), class: "btn btn-primary" %>
+
+    <%= link_to 'Edit', edit_user_registration_path(@user), class: 'btn btn-warning' %>
+    <%= link_to "Back", root_path, class: "btn btn-secondary" %>
     </div>
 
-    <h2>Sales Made</h2>
-
+    <h2 class="mt-4">Sales Made</h2>
+    <% @user.products.each do |product| %>
+      <% product.orders.group_by { |order| order.created_at.to_i }.each do |timestamp, orders| %>
+        <h3>Order placed on: <%= l(Time.at(timestamp), format: :short) %></h3>
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Product</th>
+              <th>Quantity</th>
+              <th>Price</th>
+              <th>Product Total</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% orders.each do |order| %>
+              <% if order.product.present? %>
+                <tr>
+                  <td><%= order.product.name %></td>
+                  <td><%= order.quantity %></td>
+                  <td><%= number_to_currency(order.price) %></td>
+                  <td><%= number_to_currency(order.price * order.quantity) %></td>
+                </tr>
+              <% end %>
+            <% end %>
+          </tbody>
+          <tfoot>
+            <% if orders.any? && orders.first.product && orders.first.product.user %>
+              <tr>
+                <td colspan="3">Delivery Fee:</td>
+                <td><%= number_to_currency(orders.first.product.user.delivery_fee || 0) %></td>
+              </tr>
+              <tr>
+                <td colspan="3"><strong>Grand Total:</strong></td>
+                <td><strong><%= number_to_currency(orders.sum { |o| o.price * o.quantity } + (orders.first.product.user.delivery_fee || 0)) %></strong></td>
+              </tr>
+            <% end %>
+          </tfoot>
+        </table>
+      <% end %>
+    <% end %>
+  <% else %>
     <h1>User Profile</h1>
     <div id="user-profile">
       <h2>
@@ -30,25 +74,47 @@
         <%= @user.email %>
       </p>
 
-      <!-- Add other user information as needed -->
+    <%= link_to 'Edit', edit_user_registration_path(@user), class: 'btn btn-warning' %>
+    <%= link_to "Back", root_path, class: "btn btn-secondary" %>
     </div>
 
-    <h2>Purchases Made</h2>
-    <ul>
-      <% @user.orders.each do |order| %>
-        <% if order.product.present? %>
-          <li>
-            Product: <%= link_to order.product.name, product_path(order.product) %> -
-            Price: <%= number_to_currency(order.price) %> -
-            Quantity: <%= order.quantity %> -
-            Total: <%= number_to_currency(order.total_price) %> -
-            Purchased on: <%= l(order.created_at, format: :short) %>
-          </li>
-        <% end %>
-      <% end %>
-    </ul>
+    <h2 class="mt-4">Purchases Made</h2>
+    <% @user.orders.group_by { |order| order.created_at.to_i }.each do |timestamp, orders| %>
+      <h3>Order placed on: <%= l(Time.at(timestamp), format: :short) %></h3>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Product</th>
+            <th>Quantity</th>
+            <th>Price</th>
+            <th>Product Total</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% orders.each do |order| %>
+            <% if order.product.present? %>
+              <tr>
+                <td><%= order.product.name %></td>
+                <td><%= order.quantity %></td>
+                <td><%= number_to_currency(order.price) %></td>
+                <td><%= number_to_currency(order.price * order.quantity) %></td>
+              </tr>
+            <% end %>
+          <% end %>
+        </tbody>
+        <tfoot>
+          <% if orders.any? && orders.first.product && orders.first.product.user %>
+            <tr>
+              <td colspan="3">Delivery Fee:</td>
+              <td><%= number_to_currency(orders.first.product.user.delivery_fee || 0) %></td>
+            </tr>
+            <tr>
+              <td colspan="3"><strong>Grand Total:</strong></td>
+              <td><strong><%= number_to_currency(orders.sum { |o| o.price * o.quantity } + (orders.first.product.user.delivery_fee || 0)) %></strong></td>
+            </tr>
+          <% end %>
+        </tfoot>
+      </table>
+    <% end %>
   <% end %>
-
-  <%= link_to 'Edit', edit_user_registration_path(@user), class: 'btn btn-warning' %>
-  <%= link_to "Back", root_path, class: "btn btn-secondary" %>
 </div>
