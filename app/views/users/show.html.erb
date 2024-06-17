@@ -1,5 +1,9 @@
 <div class="container">
-  <p><%= cl_image_tag url_for(current_user.photo), height: 300, width: 300, crop: :thumb%></p>
+  <% if @user.photo.attached? %>
+    <%= cl_image_tag url_for(current_user.photo), height: 300, width: 300, crop: :thumb %>
+  <% else %>
+    <%= image_tag 'default-foto.jpg',height: 300, width: 300, crop: :thumb %>
+  <% end %>
   <% if @user.restaurant %>
     <h1>Profile</h1>
     <div id="restaurant-profile">
