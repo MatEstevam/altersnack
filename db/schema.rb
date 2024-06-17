@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_06_17_185940) do
+ActiveRecord::Schema[7.1].define(version: 2024_06_17_211734) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -115,8 +115,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_17_185940) do
     t.string "name"
     t.boolean "restaurant"
     t.string "address"
-    t.jsonb "photo"
     t.decimal "delivery_fee"
+    t.jsonb "photo"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
