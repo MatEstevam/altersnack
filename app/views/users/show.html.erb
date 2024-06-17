@@ -20,14 +20,16 @@
     <h2>Sales Made</h2>
     <ul>
       <% @user.products.each do |product| %>
-        <% product.order_items.each do |item| %>
-          <li>
-            Buyer: <%= link_to item.order.user.name, user_path(item.order.user) %> -
-            Product: <%= link_to item.product.name, product_path(item.product) %> -
-            Quantity: <%= item.quantity %> -
-            Total: <%= number_to_currency(item.total_price) %> -
-            Sold on: <%= l(item.order.created_at, format: :short) %>
-          </li>
+        <% product.orders.each do |order| %>
+          <% if order.product.present? %>
+            <li>
+              Buyer: <%= link_to order.user.name, user_path(order.user) %> -
+              Product: <%= link_to order.product.name, product_path(order.product) %> -
+              Quantity: <%= order.quantity %> -
+              Total: <%= number_to_currency(order.total_price) %> -
+              Sold on: <%= l(order.created_at, format: :short) %>
+            </li>
+          <% end %>
         <% end %>
       <% end %>
     </ul>
@@ -50,12 +52,12 @@
     <h2>Purchases Made</h2>
     <ul>
       <% @user.orders.each do |order| %>
-        <% order.order_items.each do |item| %>
+        <% if order.product.present? %>
           <li>
-            Product: <%= link_to item.product.name, product_path(item.product) %> -
-            Price: <%= number_to_currency(item.product.price) %> -
-            Quantity: <%= item.quantity %> -
-            Total: <%= number_to_currency(item.total_price) %> -
+            Product: <%= link_to order.product.name, product_path(order.product) %> -
+            Price: <%= number_to_currency(order.price) %> -
+            Quantity: <%= order.quantity %> -
+            Total: <%= number_to_currency(order.total_price) %> -
             Purchased on: <%= l(order.created_at, format: :short) %>
           </li>
         <% end %>
@@ -64,6 +66,5 @@
   <% end %>
 
   <%= link_to 'Edit', edit_user_registration_path(@user), class: 'btn btn-warning' %>
-
   <%= link_to "Back", root_path, class: "btn btn-secondary" %>
 </div>

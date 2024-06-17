@@ -1,7 +1,10 @@
 class Order < ApplicationRecord
   belongs_to :user
-  has_many :order_items, dependent: :destroy
-  has_many :products, through: :order_items
+  belongs_to :product
 
-  validates :user_id, presence: true
+  validates :user_id, :product_id, :quantity, :price, presence: true
+
+  def total_price
+    price * quantity
+  end
 end
