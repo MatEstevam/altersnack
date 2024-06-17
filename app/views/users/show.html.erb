@@ -1,11 +1,14 @@
 <div class="container">
-  <p><%= cl_image_tag url_for(current_user.photo), height: 300, width: 300, crop: :thumb%></p>
+  <% if @user.photo.attached? %>
+    <%= cl_image_tag url_for(current_user.photo), height: 300, width: 300, crop: :thumb %>
+  <% else %>
+    <%= image_tag 'default-foto.jpg',height: 300, width: 300, crop: :thumb %>
+  <% end %>
   <% if @user.restaurant %>
-    <h1>Restaurant Profile</h1>
+    <h1>Profile</h1>
     <div id="restaurant-profile">
       <h2>
-        <strong>Restaurant Name:</strong>
-        <%= @user.name %>
+        <strong><%= @user.name %></strong>
       </h2>
 
       <p>
@@ -13,9 +16,7 @@
         <%= @user.address %>
       </p>
 
-      <p><%= image_tag @user.photo if @user.photo.attached? %></p>
 
-      <%= link_to "View Restaurant", restaurant_path(@user), class: "btn btn-primary" %>
 
     <%= link_to 'Edit', edit_user_registration_path(@user), class: 'btn btn-warning' %>
     <%= link_to "Back", root_path, class: "btn btn-secondary" %>
