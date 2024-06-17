@@ -46,7 +46,7 @@ class RestaurantsController < ApplicationController
 
   def show
     @products = @user.products
-    @orders = Order.joins(:order_items).where(order_items: { product_id: @products.ids })
+    @orders = Order.where(product_id: @products.ids)
   end
 
   private
