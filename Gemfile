@@ -81,3 +81,6 @@ gem "pundit"
 gem "cloudinary"
 gem 'faker'
 
+# Instalação do ChatGPT
+gem 'httparty'
+gem "ruby-openai"

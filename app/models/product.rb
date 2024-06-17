@@ -4,6 +4,7 @@ class Product < ApplicationRecord
   has_many :orders, through: :order_items
   has_many :product_restrictions, dependent: :destroy
   has_many :restrictions, through: :product_restrictions
+  has_many :cart_items, dependent: :destroy
 
   has_one_attached :photo
   accepts_nested_attributes_for :restrictions
