@@ -60,11 +60,10 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_17_150226) do
   end
 
   create_table "orders", force: :cascade do |t|
+    t.bigint "product_id", null: false
     t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "status"
-    t.bigint "product_id"
     t.decimal "price", precision: 10, scale: 2, default: "0.0", null: false
     t.integer "quantity", default: 1, null: false
     t.index ["product_id"], name: "index_orders_on_product_id"
@@ -76,10 +75,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_17_150226) do
     t.bigint "product_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "user_id"
     t.index ["product_id"], name: "index_product_restrictions_on_product_id"
     t.index ["restriction_id"], name: "index_product_restrictions_on_restriction_id"
-    t.index ["user_id"], name: "index_product_restrictions_on_user_id"
   end
 
   create_table "products", force: :cascade do |t|
@@ -125,6 +122,5 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_17_150226) do
   add_foreign_key "orders", "users"
   add_foreign_key "product_restrictions", "products"
   add_foreign_key "product_restrictions", "restrictions"
-  add_foreign_key "product_restrictions", "users"
   add_foreign_key "products", "users"
 end
