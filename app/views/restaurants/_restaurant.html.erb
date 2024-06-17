@@ -1,5 +1,7 @@
 <div class="card-restaurant" id="<%= dom_id(user) %>">
-
+  <% if user.photo.attached? %>
+    <%= cl_image_tag user.photo.key, height: 300, width: 300 %>
+  <% end %>
   <div class="card-restaurant-infos">
     <h2><strong><%= link_to user.name, restaurant_path(user) %></strong></h2>
     <p><%= user.address %></p>
