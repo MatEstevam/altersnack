@@ -12,6 +12,8 @@
         <%= @user.address %>
       </p>
 
+      <p><%= @user.photo %></p>
+
       <%= link_to "View Restaurant", restaurant_path(@user), class: "btn btn-primary" %>
     </div>
 
@@ -60,6 +62,8 @@
       <% end %>
     </ul>
   <% end %>
+
+  <%= link_to 'Edit', edit_user_registration_path(@user), class: 'btn btn-warning' %>
 
   <%= link_to "Back", root_path, class: "btn btn-secondary" %>
 </div>

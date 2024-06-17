@@ -55,4 +55,8 @@ class RestaurantsController < ApplicationController
     @user = User.find(params[:id])
     authorize @user
   end
+
+  def restaurant_params
+    params.require(:user).permit(:photo)
+  end
 end

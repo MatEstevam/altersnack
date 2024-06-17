@@ -13,6 +13,8 @@ Rails.application.routes.draw do
     post 'add_to_cart', on: :member, to: 'carts#add_product'
   end
 
+
+
   resource :cart, only: [:show] do
     patch 'update_quantity/:id', on: :member, to: 'carts#update_quantity', as: 'update_quantity'
     delete 'remove_product/:id', on: :member, to: 'carts#remove_product', as: 'remove_product'
