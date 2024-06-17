@@ -3,42 +3,42 @@ import "@hotwired/turbo-rails"
 import "controllers"
 import "@popperjs/core"
 import "bootstrap"
-const slider = document.querySelector(".items");
-		const slides = document.querySelectorAll(".item");
-		const button = document.querySelectorAll(".button");
 
-		let current = 0;
-		let prev = 4;
-		let next = 1;
+// const slides = document.querySelectorAll(".item");
+// const buttons = document.querySelectorAll(".button");
 
-		for (let i = 0; i < button.length; i++) {
-			button[i].addEventListener("click", () => i == 0 ? gotoPrev() : gotoNext());
-		}
+// let current = 0;
+// let prev = slides.length - 1;
+// let next = 1;
 
-		const gotoPrev = () => current > 0 ? gotoNum(current - 1) : gotoNum(slides.length - 1);
+// buttons.forEach((button, index) => {
+//   button.addEventListener("click", () => {
+//     if (index === 0) {
+//       gotoPrev();
+//     } else {
+//       gotoNext();
+//     }
+//   });
+// });
 
-		const gotoNext = () => current < 5 ? gotoNum(current + 1) : gotoNum(0);
+// const gotoPrev = () => {
+//   current = current > 0 ? current - 1 : slides.length - 1;
+//   updateClasses();
+// };
 
-		const gotoNum = number => {
-			current = number;
-			prev = current - 1;
-			next = current + 1;
+// const gotoNext = () => {
+//   current = current < slides.length - 1 ? current + 1 : 0;
+//   updateClasses();
+// };
 
-			for (let i = 0; i < slides.length; i++) {
-				slides[i].classList.remove("active");
-				slides[i].classList.remove("prev");
-				slides[i].classList.remove("next");
-			}
+// const updateClasses = () => {
+//   prev = current === 0 ? slides.length - 1 : current - 1;
+//   next = current === slides.length - 1 ? 0 : current + 1;
 
-			if (next == 6) {
-				next = 0;
-			}
-
-			if (prev == -1) {
-				prev = 4;
-			}
-
-			slides[current].classList.add("active");
-			slides[prev].classList.add("prev");
-			slides[next].classList.add("next");
-		}
+//   slides.forEach((slide, index) => {
+//     slide.classList.remove("active", "prev", "next");
+//     if (index === prev) slide.classList.add("prev");
+//     else if (index === current) slide.classList.add("active");
+//     else if (index === next) slide.classList.add("next");
+//   });
+// };

@@ -1,28 +1,28 @@
 <div class="container">
 
-  <div class="items">
-		<div class="item active">
+  <div class="items" data-controller='filter-carrossel' data-filter-carrossel-target="carrossel" data-filter-carrossel-current-value="0" data-filter-carrossel-next-value="1">
+		<div class="item active" data-filter-carrossel-target='item'>
 			<%= link_to "Gluten Free", restaurants_path(filter: "gluten_free"), class: 'btn btn-circle mr-2' %>
 		</div>
-		<div class=" item next">
+		<div class=" item next" data-filter-carrossel-target='item'>
 			<%= link_to "Dairy Free", restaurants_path(filter: "dairy_free"), class: 'btn btn-circle mr-2' %>
 		</div>
-		<div class="item">
+		<div class="item" data-filter-carrossel-target='item'>
 			<%= link_to "Nut Free", restaurants_path(filter: "nut_free"), class: 'btn btn-circle mr-2' %>
 		</div>
-		<div class="item">
+		<div class="item" data-filter-carrossel-target='item'>
 			<%= link_to "Soy Free", restaurants_path(filter: "soy_free"), class: 'btn btn-circle mr-2' %>
 		</div>
-		<div class="item">
+		<div class="item" data-filter-carrossel-target='item'>
 			<%= link_to "Vegetarian", restaurants_path(filter: "vegetarian"), class: 'btn btn-circle mr-2' %>
 		</div>
-    <div class="item prev">
+    <div class="item prev" data-filter-carrossel-target='item'>
       <%= link_to "Vegan", restaurants_path(filter: "vegan"), class: 'btn btn-circle mr-2' %>
 		</div>
 
 		<div class="button-container">
-			<div class="button"><i class="fas fa-angle-left"></i></div>
-			<div class="button"><i class="fas fa-angle-right"></i></div>
+			<div class="button" data-action="click->filter-carrossel#gotoPrev"><i class="fas fa-angle-left"></i></div>
+			<div class="button" data-action="click->filter-carrossel#gotoNext"><i class="fas fa-angle-right"></i></div>
 		</div>
 	</div>
   <div class="home-content">
