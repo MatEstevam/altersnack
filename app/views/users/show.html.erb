@@ -1,4 +1,5 @@
 <div class="container">
+  <p><%= cl_image_tag url_for(current_user.photo), height: 300, width: 300, crop: :thumb%></p>
   <% if @user.restaurant %>
     <h1>Restaurant Profile</h1>
     <div id="restaurant-profile">
@@ -12,28 +13,11 @@
         <%= @user.address %>
       </p>
 
-      <p><%= @user.photo %></p>
 
-      <%= link_to "View Restaurant", restaurant_path(@user), class: "btn btn-primary" %>
     </div>
 
     <h2>Sales Made</h2>
-    <ul>
-      <% @user.products.each do |product| %>
-        <% product.orders.each do |order| %>
-          <% if order.product.present? %>
-            <li>
-              Buyer: <%= link_to order.user.name, user_path(order.user) %> -
-              Product: <%= link_to order.product.name, product_path(order.product) %> -
-              Quantity: <%= order.quantity %> -
-              Total: <%= number_to_currency(order.total_price) %> -
-              Sold on: <%= l(order.created_at, format: :short) %>
-            </li>
-          <% end %>
-        <% end %>
-      <% end %>
-    </ul>
-  <% else %>
+
     <h1>User Profile</h1>
     <div id="user-profile">
       <h2>

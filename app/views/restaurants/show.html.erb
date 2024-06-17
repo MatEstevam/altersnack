@@ -23,7 +23,7 @@
           <%= link_to product_path(product), class: 'card-link' do %>
             <div>
               <% if product.photo.attached? %>
-                  <%= image_tag url_for(product.photo), height: 180, width: 180, crop: :fill, class: 'card-img-top' %>
+                  <%= cl_image_tag url_for(product.photo), height: 180, width: 180, crop: :fill, class: 'card-img-top' %>
               <% else %>
                 <%= image_tag 'default-foto.jpg', height: 180, width: 180, crop: :fill, class: 'card-img-top' %>
               <% end %>
