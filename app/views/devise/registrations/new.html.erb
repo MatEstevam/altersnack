@@ -9,6 +9,10 @@
       <%= f.input :email, required: true, autofocus: true, input_html: { autocomplete: "email" } %>
       <%= f.input :address, required: true, input_html: { placeholder: "Enter your address" } %>
       <%= f.input :restaurant, as: :select, collection: [['Yes', true], ['No', false]], prompt: 'Select Yes or No', required: true, label: 'Do you own a restaurant?' %>
+      <div id="delivery_fee_field" class="form-group" style="display: none;">
+        <%= f.label :delivery_fee, "Delivery Fee" %>
+        <%= f.input_field :delivery_fee, as: :decimal, step: 0.01, class: "form-control" %>
+      </div>
       <%= f.input :password, required: true, hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length), input_html: { autocomplete: "new-password" } %>
       <%= f.input :password_confirmation, required: true, input_html: { autocomplete: "new-password" } %>
       <%= f.input :photo, as: :file, input_html: { multiple: false } %>
@@ -22,3 +26,21 @@
   <%= render "devise/shared/links" %>
 
 </div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    const restaurantSelect = document.querySelector("#user_restaurant");
+    const deliveryFeeField = document.querySelector("#delivery_fee_field");
+
+    function toggleDeliveryFeeField() {
+      if (restaurantSelect.value === "true") {
+        deliveryFeeField.style.display = "block";
+      } else {
+        deliveryFeeField.style.display = "none";
+      }
+    }
+
+    restaurantSelect.addEventListener("change", toggleDeliveryFeeField);
+    toggleDeliveryFeeField();
+  });
+</script>

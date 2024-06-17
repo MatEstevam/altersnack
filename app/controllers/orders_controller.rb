@@ -8,30 +8,30 @@ class OrdersController < ApplicationController
   end
 
   def create
-    if @cart.cart_items.empty?
-      redirect_to root_path, alert: 'Your cart is empty.'
-      return
-    end
+    authorize Order
+
+    delivery_fee = @cart.cart_items.first.product.user.delivery_fee || 0
+    total_price = @cart.total_price + delivery_fee
 
     @cart.cart_items.each do |item|
-      order = Order.new(
+      @order = Order.new(
         user: current_user,
         product: item.product,
         quantity: item.quantity,
         price: item.product.price
       )
-      authorize order
+      authorize @order
 
-      if order.save
-        item.destroy
-      else
-        Rails.logger.debug "Order errors: #{order.errors.full_messages}"
-        render :new, alert: 'Failed to place order.'
-        return
+      unless @order.save
+        render :new and return
       end
     end
 
-    redirect_to root_path, notice: 'Order placed successfully!'
+    if current_user.cart.cart_items.destroy_all
+      redirect_to root_path, notice: 'Order placed successfully!'
+    else
+      render :new
+    end
   end
 
   def show
@@ -42,6 +42,6 @@ class OrdersController < ApplicationController
   private
 
   def set_cart
-    @cart = current_user.cart || current_user.create_cart
+    @cart = current_user.cart
   end
 end
