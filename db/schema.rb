@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_06_12_200108) do
+ActiveRecord::Schema[7.1].define(version: 2024_06_17_141643) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -59,22 +59,14 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_12_200108) do
     t.index ["user_id"], name: "index_carts_on_user_id"
   end
 
-  create_table "order_items", force: :cascade do |t|
-    t.bigint "order_id", null: false
-    t.bigint "product_id", null: false
-    t.integer "quantity"
-    t.decimal "price"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["order_id"], name: "index_order_items_on_order_id"
-    t.index ["product_id"], name: "index_order_items_on_product_id"
-  end
-
   create_table "orders", force: :cascade do |t|
-    t.bigint "product_id", null: false
     t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "status"
+    t.bigint "product_id"
+    t.decimal "price", precision: 10, scale: 2, default: "0.0", null: false
+    t.integer "quantity", default: 1, null: false
     t.index ["product_id"], name: "index_orders_on_product_id"
     t.index ["user_id"], name: "index_orders_on_user_id"
   end
@@ -84,8 +76,10 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_12_200108) do
     t.bigint "product_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "user_id"
     t.index ["product_id"], name: "index_product_restrictions_on_product_id"
     t.index ["restriction_id"], name: "index_product_restrictions_on_restriction_id"
+    t.index ["user_id"], name: "index_product_restrictions_on_user_id"
   end
 
   create_table "products", force: :cascade do |t|
@@ -116,6 +110,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_12_200108) do
     t.string "name"
     t.boolean "restaurant"
     t.string "address"
+    t.jsonb "photo"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
@@ -125,11 +120,10 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_12_200108) do
   add_foreign_key "cart_items", "carts"
   add_foreign_key "cart_items", "products"
   add_foreign_key "carts", "users"
-  add_foreign_key "order_items", "orders"
-  add_foreign_key "order_items", "products"
   add_foreign_key "orders", "products"
   add_foreign_key "orders", "users"
   add_foreign_key "product_restrictions", "products"
   add_foreign_key "product_restrictions", "restrictions"
+  add_foreign_key "product_restrictions", "users"
   add_foreign_key "products", "users"
 end

@@ -32,6 +32,7 @@
     <%= form_with(model: @order, local: true) do |form| %>
       <div class="actions">
         <%= form.submit "Place Order", class: "btn btn-primary" %>
+        <%= link_to 'Back to Cart', cart_path, class: 'btn btn-secondary' %>
       </div>
     <% end %>
   <% else %>

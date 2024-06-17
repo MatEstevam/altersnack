@@ -23,4 +23,8 @@ class UsersController < ApplicationController
   def authorize_user
     redirect_to root_path, alert: 'Not authorized' unless current_user == @user
   end
+
+  def user_params
+    params.require(:user).permit(:name, :email, :photo, :address)
+  end
 end
