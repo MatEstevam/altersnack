@@ -46,7 +46,7 @@ body {
 
 .items {
   position: absolute;
-  top: 30%;
+  top: 29%;
   left: 50%;
   transform: translate(-50%, -50%);
   user-select: none;
@@ -129,4 +129,14 @@ body {
 
 .home-content{
   margin-top: 30vh;
+}
+
+@media (min-width: 700px) {
+  .home-content {
+    margin-top: 25vh;
+  }
+
+  .items {
+    top: 25%;
+  }
 }

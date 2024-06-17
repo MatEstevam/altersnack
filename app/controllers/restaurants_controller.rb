@@ -10,31 +10,20 @@ class RestaurantsController < ApplicationController
         return
       end
       if params[:filter].present?
-        case params[:filter]
-        when "gluten_free"
+        # Mapa de filtros para IDs de restrições
+        filter_map = {
+          "gluten_free" => Restriction.find_by(name: "Gluten Free")&.id,
+          "dairy_free" => Restriction.find_by(name: "Dairy Free")&.id,
+          "nut_free" => Restriction.find_by(name: "Nut Free")&.id,
+          "soy_free" => Restriction.find_by(name: "Soy Free")&.id,
+          "vegetarian" => Restriction.find_by(name: "Vegetarian")&.id,
+          "vegan" => Restriction.find_by(name: "Vegan")&.id
+        }
+
+        if filter_map[params[:filter]]
           @users = @users.joins(products: :product_restrictions)
-          .where(product_restrictions: { restriction_id: Restriction.find_by(name: "Gluten Free").id })
-          .distinct
-        when "dairy_free"
-          @users = @users.joins(products: :product_restrictions)
-          .where(product_restrictions: { restriction_id: Restriction.find_by(name: "Dairy Free").id })
-          .distinct
-        when "nut_free"
-          @users = @users.joins(products: :product_restrictions)
-          .where(product_restrictions: { restriction_id: Restriction.find_by(name: "Nut Free").id })
-          .distinct
-        when "soy_free"
-          @users = @users.joins(products: :product_restrictions)
-          .where(product_restrictions: { restriction_id: Restriction.find_by(name: "Soy Free").id })
-          .distinct
-        when "vegetarian"
-          @users = @users.joins(products: :product_restrictions)
-          .where(product_restrictions: { restriction_id: Restriction.find_by(name: "Vegetarian").id })
-          .distinct
-        when "vegan"
-          @users = @users.joins(products: :product_restrictions)
-          .where(product_restrictions: { restriction_id: Restriction.find_by(name: "Vegan").id })
-          .distinct
+                         .where(product_restrictions: { restriction_id: filter_map[params[:filter]] })
+                         .distinct
         else
           @restaurants = Restaurant.all
         end
@@ -46,7 +35,7 @@ class RestaurantsController < ApplicationController
 
   def show
     @products = @user.products
-    @orders = Order.joins(:order_items).where(order_items: { product_id: @products.ids })
+    @orders = Order.where(product_id: @products.ids)
   end
 
   private

@@ -1,8 +1,11 @@
 <div class="card-restaurant" id="<%= dom_id(user) %>">
-
+  <% if user.photo.attached? %>
+    <%= cl_image_tag url_for(user.photo), height: 300, width: 300 %>
+  <% else %>
+    <%= image_tag 'default-foto.jpg', height: 300, width: 300, crop: :fill, class: 'card-img-top' %>
+  <% end %>
   <div class="card-restaurant-infos">
     <h2><strong><%= link_to user.name, restaurant_path(user) %></strong></h2>
-    <p>
-       <%= user.address %></p>
+    <p><%= user.address %></p>
   </div>
 </div>

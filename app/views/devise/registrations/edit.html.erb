@@ -13,11 +13,20 @@
 
     <%= f.input :address %>
     <%= f.input :photo, as: :file, input_html: { multiple: false } %>
+
+    <% if resource.restaurant? %>
+      <div class="form-group">
+        <%= f.label :delivery_fee, "Delivery Fee" %>
+        <%= f.input_field :delivery_fee, as: :decimal, step: 0.01, class: "form-control" %>
+      </div>
+    <% end %>
+
     <%= f.input :current_password,
                 hint: "we need your current password to confirm your changes",
                 required: true,
                 input_html: { autocomplete: "current-password" } %>
-    <%= f.input :photo, as: :file, input_html: { multiple: false } %>
+                <%= f.input :photo, as: :file, input_html: { multiple: false } %>
+
   </div>
 
   <div class="form-actions">

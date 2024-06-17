@@ -1,10 +1,14 @@
 <div class="container">
+  <% if @user.photo.attached? %>
+    <%= cl_image_tag url_for(current_user.photo), height: 300, width: 300, crop: :thumb %>
+  <% else %>
+    <%= image_tag 'default-foto.jpg',height: 300, width: 300, crop: :thumb %>
+  <% end %>
   <% if @user.restaurant %>
-    <h1>Restaurant Profile</h1>
+    <h1>Profile</h1>
     <div id="restaurant-profile">
       <h2>
-        <strong>Restaurant Name:</strong>
-        <%= @user.name %>
+        <strong><%= @user.name %></strong>
       </h2>
 
       <p>
@@ -12,25 +16,52 @@
         <%= @user.address %>
       </p>
 
-      <p><%= @user.photo %></p>
 
-      <%= link_to "View Restaurant", restaurant_path(@user), class: "btn btn-primary" %>
+
+    <%= link_to 'Edit', edit_user_registration_path(@user), class: 'btn btn-warning' %>
+    <%= link_to "Back", root_path, class: "btn btn-secondary" %>
     </div>
 
-    <h2>Sales Made</h2>
-    <ul>
-      <% @user.products.each do |product| %>
-        <% product.order_items.each do |item| %>
-          <li>
-            Buyer: <%= link_to item.order.user.name, user_path(item.order.user) %> -
-            Product: <%= link_to item.product.name, product_path(item.product) %> -
-            Quantity: <%= item.quantity %> -
-            Total: <%= number_to_currency(item.total_price) %> -
-            Sold on: <%= l(item.order.created_at, format: :short) %>
-          </li>
-        <% end %>
+    <h2 class="mt-4">Sales Made</h2>
+    <% @user.products.each do |product| %>
+      <% product.orders.group_by { |order| order.created_at.to_i }.each do |timestamp, orders| %>
+        <h3>Order placed on: <%= l(Time.at(timestamp), format: :short) %></h3>
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Product</th>
+              <th>Quantity</th>
+              <th>Price</th>
+              <th>Product Total</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% orders.each do |order| %>
+              <% if order.product.present? %>
+                <tr>
+                  <td><%= order.product.name %></td>
+                  <td><%= order.quantity %></td>
+                  <td><%= number_to_currency(order.price) %></td>
+                  <td><%= number_to_currency(order.price * order.quantity) %></td>
+                </tr>
+              <% end %>
+            <% end %>
+          </tbody>
+          <tfoot>
+            <% if orders.any? && orders.first.product && orders.first.product.user %>
+              <tr>
+                <td colspan="3">Delivery Fee:</td>
+                <td><%= number_to_currency(orders.first.product.user.delivery_fee || 0) %></td>
+              </tr>
+              <tr>
+                <td colspan="3"><strong>Grand Total:</strong></td>
+                <td><strong><%= number_to_currency(orders.sum { |o| o.price * o.quantity } + (orders.first.product.user.delivery_fee || 0)) %></strong></td>
+              </tr>
+            <% end %>
+          </tfoot>
+        </table>
       <% end %>
-    </ul>
+    <% end %>
   <% else %>
     <h1>User Profile</h1>
     <div id="user-profile">
@@ -44,26 +75,47 @@
         <%= @user.email %>
       </p>
 
-      <!-- Add other user information as needed -->
+    <%= link_to 'Edit', edit_user_registration_path(@user), class: 'btn btn-warning' %>
+    <%= link_to "Back", root_path, class: "btn btn-secondary" %>
     </div>
 
-    <h2>Purchases Made</h2>
-    <ul>
-      <% @user.orders.each do |order| %>
-        <% order.order_items.each do |item| %>
-          <li>
-            Product: <%= link_to item.product.name, product_path(item.product) %> -
-            Price: <%= number_to_currency(item.product.price) %> -
-            Quantity: <%= item.quantity %> -
-            Total: <%= number_to_currency(item.total_price) %> -
-            Purchased on: <%= l(order.created_at, format: :short) %>
-          </li>
-        <% end %>
-      <% end %>
-    </ul>
+    <h2 class="mt-4">Purchases Made</h2>
+    <% @user.orders.group_by { |order| order.created_at.to_i }.each do |timestamp, orders| %>
+      <h3>Order placed on: <%= l(Time.at(timestamp), format: :short) %></h3>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Product</th>
+            <th>Quantity</th>
+            <th>Price</th>
+            <th>Product Total</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% orders.each do |order| %>
+            <% if order.product.present? %>
+              <tr>
+                <td><%= order.product.name %></td>
+                <td><%= order.quantity %></td>
+                <td><%= number_to_currency(order.price) %></td>
+                <td><%= number_to_currency(order.price * order.quantity) %></td>
+              </tr>
+            <% end %>
+          <% end %>
+        </tbody>
+        <tfoot>
+          <% if orders.any? && orders.first.product && orders.first.product.user %>
+            <tr>
+              <td colspan="3">Delivery Fee:</td>
+              <td><%= number_to_currency(orders.first.product.user.delivery_fee || 0) %></td>
+            </tr>
+            <tr>
+              <td colspan="3"><strong>Grand Total:</strong></td>
+              <td><strong><%= number_to_currency(orders.sum { |o| o.price * o.quantity } + (orders.first.product.user.delivery_fee || 0)) %></strong></td>
+            </tr>
+          <% end %>
+        </tfoot>
+      </table>
+    <% end %>
   <% end %>
-
-  <%= link_to 'Edit', edit_user_registration_path(@user), class: 'btn btn-warning' %>
-
-  <%= link_to "Back", root_path, class: "btn btn-secondary" %>
 </div>

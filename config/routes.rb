@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   get 'carts/show'
   get 'orders/create'
-  devise_for :users
+  devise_for :users, controllers: { registrations: 'users/registrations' }
 
   # Definir a página inicial
   root to: "restaurants#index"

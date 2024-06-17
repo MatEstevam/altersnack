@@ -8,14 +8,26 @@ class OrdersController < ApplicationController
   end
 
   def create
-    @order = Order.new(user: current_user)
-    authorize @order
-    current_user.cart.cart_items.each do |item|
-      @order.order_items.build(product: item.product, quantity: item.quantity, price: item.product.price)
+    authorize Order
+
+    delivery_fee = @cart.cart_items.first.product.user.delivery_fee || 0
+    total_price = @cart.total_price + delivery_fee
+
+    @cart.cart_items.each do |item|
+      @order = Order.new(
+        user: current_user,
+        product: item.product,
+        quantity: item.quantity,
+        price: item.product.price
+      )
+      authorize @order
+
+      unless @order.save
+        render :new and return
+      end
     end
 
-    if @order.save
-      current_user.cart.cart_items.destroy_all
+    if current_user.cart.cart_items.destroy_all
       redirect_to root_path, notice: 'Order placed successfully!'
     else
       render :new
