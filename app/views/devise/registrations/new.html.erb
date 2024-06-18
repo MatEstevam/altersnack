@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" data-controller="delivery-fee">
   <h2>Sign up</h2>
 
   <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { multipart: true }) do |f| %>
@@ -8,8 +8,8 @@
       <%= f.input :name, required: true, input_html: { placeholder: "Enter your name" } %>
       <%= f.input :email, required: true, autofocus: true, input_html: { autocomplete: "email" } %>
       <%= f.input :address, required: true, input_html: { placeholder: "Enter your address" } %>
-      <%= f.input :restaurant, as: :select, collection: [['Yes', true], ['No', false]], prompt: 'Select Yes or No', required: true, label: 'Do you own a restaurant?' %>
-      <div id="delivery_fee_field" class="form-group" style="display: none;">
+      <%= f.input :restaurant, as: :select, collection: [['Yes', true], ['No', false]], prompt: 'Select Yes or No', required: true, label: 'Do you own a restaurant?', input_html: { data: { target: "delivery-fee.restaurant", action: "delivery-fee#toggleDeliveryFeeField" } } %>
+      <div id="delivery_fee_field" class="form-group" data-delivery-fee-target="deliveryFee" style="display: none;">
         <%= f.label :delivery_fee, "Delivery Fee" %>
         <%= f.input_field :delivery_fee, as: :decimal, step: 0.01, class: "form-control" %>
       </div>
@@ -24,23 +24,4 @@
   <% end %>
 
   <%= render "devise/shared/links" %>
-
 </div>
-
-<script>
-  document.addEventListener("DOMContentLoaded", function() {
-    const restaurantSelect = document.querySelector("#user_restaurant");
-    const deliveryFeeField = document.querySelector("#delivery_fee_field");
-
-    function toggleDeliveryFeeField() {
-      if (restaurantSelect.value === "true") {
-        deliveryFeeField.style.display = "block";
-      } else {
-        deliveryFeeField.style.display = "none";
-      }
-    }
-
-    restaurantSelect.addEventListener("change", toggleDeliveryFeeField);
-    toggleDeliveryFeeField();
-  });
-</script>
