@@ -16,7 +16,7 @@ class OrdersController < ApplicationController
     @cart.cart_items.each do |item|
       @order = Order.new(
         user: current_user,
-        product: item.product,
+        cart_item: item,
         quantity: item.quantity,
         price: item.product.price
       )
