@@ -4,6 +4,7 @@ class Product < ApplicationRecord
   has_many :product_restrictions, dependent: :destroy
   has_many :restrictions, through: :product_restrictions
 
+  monetize :price_cents
   has_one_attached :photo
   accepts_nested_attributes_for :restrictions
 

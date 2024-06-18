@@ -40,6 +40,7 @@
     </table>
 
     <%= form_with(model: @order, local: true) do |form| %>
+      <% form.hidden_field_tag :product_id, @order.cart_itens.id  %>
       <div class="actions">
         <%= form.submit "Place Order", class: "btn btn-primary" %>
       </div>

@@ -51,6 +51,10 @@ gem "font-awesome-sass", "~> 6.1"
 gem "simple_form", github: "heartcombo/simple_form"
 gem "sassc-rails"
 
+gem 'money-rails'
+gem 'stripe'
+gem 'stripe_event'
+
 group :development, :test do
   gem "dotenv-rails"
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
@@ -80,4 +84,3 @@ gem 'ffi', '~> 1.16.3'
 gem "pundit"
 gem "cloudinary"
 gem 'faker'
-

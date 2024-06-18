@@ -1,6 +1,5 @@
 # Limpar o banco de dados
 Order.destroy_all
-OrderItem.destroy_all
 ProductRestriction.destroy_all
 Product.destroy_all
 Restriction.destroy_all
@@ -25,6 +24,8 @@ Restriction.create!(name: "Vegan")
     address: Faker::Address.street_address,
     restaurant: true
   )
+
+  puts "user #{i} created"
 
   3.times do |j|
     product = Product.create!(
