@@ -19,7 +19,9 @@ Rails.application.routes.draw do
     delete 'remove_product/:id', on: :member, to: 'carts#remove_product', as: 'remove_product'
   end
 
-  resources :orders, only: [:new, :create] do
+  mount StripeEvent::Engine, at: '/stripe-webhooks'
+
+  resources :orders, only: [:new, :create, :show] do
     resources :payments, only: :new
   end
 

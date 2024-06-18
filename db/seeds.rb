@@ -2,7 +2,6 @@
 User.destroy_all
 Recipe.destroy_all
 Order.destroy_all
-OrderItem.destroy_all
 ProductRestriction.destroy_all
 Product.destroy_all
 Restriction.destroy_all

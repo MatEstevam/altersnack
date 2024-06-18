@@ -8,23 +8,27 @@ class OrdersController < ApplicationController
   end
 
   def create
-    raise
-    product = Product.find(params[:product_id])
-    order  = Order.create!(product: product, amount: product.price, state: 'pending', user: current_user)
+    cart = Cart.find(params[:order][:cart_id])
+    order  = Order.create!(cart: cart, amount: cart.total_price, state: 'pending', user: current_user)
+    authorize order
 
-    @cart.cart_items.each do |item|
-      @order = Order.new(
-        user: current_user,
-        cart_item: item,
-        quantity: item.quantity,
-        price: item.product.price
-      )
-      authorize @order
+    session = Stripe::Checkout::Session.create(
+      payment_method_types: ['card'],
+      line_items: [{
+        price_data: {
+          currency: 'brl',
+          unit_amount: (cart.total_price * 100).to_i,
+          product_data: {
+            name: "Order test"
+          },
+        },
 
-      unless @order.save
-        render :new and return
-      end
-    end
+        quantity: 1
+      }],
+      mode: "payment",
+      success_url: order_url(order),
+      cancel_url: order_url(order)
+    )
 
     order.update(checkout_session_id: session.id)
     redirect_to new_order_payment_path(order)
@@ -32,6 +36,7 @@ class OrdersController < ApplicationController
 
   def show
     @order = current_user.orders.find(params[:id])
+    authorize @order
   end
 
   private

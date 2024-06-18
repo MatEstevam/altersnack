@@ -41,8 +41,8 @@
       </tfoot>
     </table>
 
-    <%= form_with(model: @order, local: true) do |form| %>
-      <% form.hidden_field_tag :product_id, @order.cart_itens.id  %>
+    <%= simple_form_for @order do |form| %>
+      <%= form.input :cart_id, input_html: { hidden: true,  value: @cart.id } %>
       <div class="actions">
         <%= form.submit "Place Order", class: "btn btn-primary" %>
       </div>
