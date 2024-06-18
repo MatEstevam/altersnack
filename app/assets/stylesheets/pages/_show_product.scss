@@ -77,5 +77,8 @@
   }
   .btn{
     margin-top: 10px;
+    .btn-primary{
+      background-color: $brown;
+    }
   }
 }
