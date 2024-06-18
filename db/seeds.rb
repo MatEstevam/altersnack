@@ -1,9 +1,11 @@
 # Limpar o banco de dados
+User.destroy_all
+Recipe.destroy_all
 Order.destroy_all
+OrderItem.destroy_all
 ProductRestriction.destroy_all
 Product.destroy_all
 Restriction.destroy_all
-User.destroy_all
 
 require 'faker'
 
@@ -41,5 +43,9 @@ Restriction.create!(name: "Vegan")
     end
   end
 end
+
+# Recipes do ChatGPT
+Recipe.create(name: "Guacamole", ingredients: "avocado,cilantro,lime")
+Recipe.create(name: "Ratatouille", ingredients: "eggplant,zucchini,bell pepper")
 
 puts "Seed completo!"

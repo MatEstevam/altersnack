@@ -1,6 +1,6 @@
 <h2>Edit <%= resource_name.to_s.humanize %></h2>
 
-<%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+<%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put, data: { controller: "delivery-fee" } }) do |f| %>
   <%= f.error_notification %>
 
   <div class="form-inputs">
@@ -13,13 +13,12 @@
 
     <%= f.input :address %>
     <%= f.input :photo, as: :file, input_html: { multiple: false } %>
+    <%= f.input :restaurant, as: :select, collection: [['Yes', true], ['No', false]], prompt: 'Select Yes or No', required: true, label: 'Do you own a restaurant?', input_html: { data: { target: "delivery-fee.restaurant", action: "delivery-fee#toggleDeliveryFeeField" } } %>
 
-    <% if resource.restaurant? %>
-      <div class="form-group">
-        <%= f.label :delivery_fee, "Delivery Fee" %>
-        <%= f.input_field :delivery_fee, as: :decimal, step: 0.01, class: "form-control" %>
-      </div>
-    <% end %>
+    <div id="delivery_fee_field" class="form-group" data-delivery-fee-target="deliveryFee" style="display: none;">
+      <%= f.label :delivery_fee, "Delivery Fee" %>
+      <%= f.input_field :delivery_fee, as: :decimal, step: 0.01, class: "form-control" %>
+    </div>
 
     <%= f.input :current_password,
                 hint: "we need your current password to confirm your changes",
