@@ -1,6 +1,11 @@
 <div class="container show-restaurant">
   <div id="<%= dom_id(@user) %>">
   <div class="rest-info">
+    <% if @user.photo.attached? %>
+      <%= cl_image_tag url_for(@user.photo), height: 300, width: 400, crop: :fill %>
+    <% else %>
+      <%= image_tag 'default-foto.jpg',height: 300, width: 300, crop: :thumb %>
+    <% end %>
     <h1><%= @user.name %></h1>
 
     <p>

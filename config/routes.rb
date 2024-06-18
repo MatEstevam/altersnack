@@ -14,13 +14,16 @@ Rails.application.routes.draw do
   end
 
 
-
   resource :cart, only: [:show] do
     patch 'update_quantity/:id', on: :member, to: 'carts#update_quantity', as: 'update_quantity'
     delete 'remove_product/:id', on: :member, to: 'carts#remove_product', as: 'remove_product'
   end
 
-  resources :orders, only: [:new, :create, :show]
+  mount StripeEvent::Engine, at: '/stripe-webhooks'
+
+  resources :orders, only: [:new, :create, :show] do
+    resources :payments, only: :new
+  end
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
   # Can be used by load balancers and uptime monitors to verify that the app is live.

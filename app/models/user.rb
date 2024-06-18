@@ -7,7 +7,7 @@ class User < ApplicationRecord
   validates :name, presence: true
   validates :email, presence: true, format: { with: URI::MailTo::EMAIL_REGEXP, message: "is not a valid email" }
   validates :address, presence: true
-  validates :delivery_fee, numericality: { greater_than_or_equal_to: 0 }, if: :restaurant?
+  #validates :delivery_fee, numericality: { greater_than_or_equal_to: 0 }, if: :restaurant?
 
   def restaurant?
     restaurant

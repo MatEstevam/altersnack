@@ -2,8 +2,6 @@
 User.destroy_all
 Recipe.destroy_all
 Order.destroy_all
-OrderItem.destroy_all
-CartItem.destroy_all
 ProductRestriction.destroy_all
 Product.destroy_all
 Restriction.destroy_all
@@ -27,6 +25,8 @@ Restriction.create!(name: "Vegan")
     address: Faker::Address.street_address,
     restaurant: true
   )
+
+  puts "user #{i} created"
 
   3.times do |j|
     product = Product.create!(

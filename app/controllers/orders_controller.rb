@@ -8,34 +8,34 @@ class OrdersController < ApplicationController
   end
 
   def create
-    authorize Order
+    cart = Cart.find(params[:order][:cart_id])
+    order  = Order.create!(cart: cart, amount: cart.total_price, state: 'pending', user: current_user)
+    authorize order
 
-    delivery_fee = @cart.cart_items.first.product.user.delivery_fee || 0
-    total_price = @cart.total_price + delivery_fee
+    session = Stripe::Checkout::Session.create(
+      payment_method_types: ['card'],
+      line_items: [{
+        price_data: {
+          currency: 'brl',
+          unit_amount: (cart.total_price * 100).to_i,
+          product_data: {
+            name: "Order test"
+          },
+        },
 
-    @cart.cart_items.each do |item|
-      @order = Order.new(
-        user: current_user,
-        cart_item: item,
-        quantity: item.quantity,
-        price: item.product.price
-      )
-      authorize @order
+        quantity: 1
+      }],
+      mode: "payment",
+      success_url: order_url(order),
+      cancel_url: order_url(order)
+    )
 
-      unless @order.save
-        render :new and return
-      end
-    end
-
-    if current_user.cart.cart_items.destroy_all
-      redirect_to root_path, notice: 'Order placed successfully!'
-    else
-      render :new
-    end
+    order.update(checkout_session_id: session.id)
+    redirect_to new_order_payment_path(order)
   end
 
   def show
-    @order = Order.find(params[:id])
+    @order = current_user.orders.find(params[:id])
     authorize @order
   end
 
