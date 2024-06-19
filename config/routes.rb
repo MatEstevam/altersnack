@@ -15,9 +15,12 @@ Rails.application.routes.draw do
 
 
   resource :cart, only: [:show] do
-    patch 'update_quantity/:id', on: :member, to: 'carts#update_quantity', as: 'update_quantity'
-    delete 'remove_product/:id', on: :member, to: 'carts#remove_product', as: 'remove_product'
+    member do
+      patch 'update_quantity/:id', to: 'carts#update_quantity', as: 'update_quantity'
+      delete 'remove_from_cart/:id', to: 'carts#remove_from_cart', as: 'remove_from_cart'
+    end
   end
+
 
   mount StripeEvent::Engine, at: '/stripe-webhooks'
 

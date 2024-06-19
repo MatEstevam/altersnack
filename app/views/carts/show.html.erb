@@ -37,9 +37,8 @@
               <td><%= number_to_currency(item.product.price) %></td>
               <td><%= number_to_currency(item.total_price) %></td>
               <td>
-                <%= link_to remove_product_cart_path(item), data: {
-                      turbo_method: :delete,
-                      turbo_confirm: 'Are you sure?'
+                <%= link_to remove_from_cart_cart_path(item), method: :delete, data: {
+                      action: 'delete-product'
                     }, class: 'btn btn-red btn-sm mr-2 d-flex justify-content-center align-items-center' do %>
                   <i class="fa-solid fa-trash"></i>
                   <% end %>
