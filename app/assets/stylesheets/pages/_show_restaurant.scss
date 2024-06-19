@@ -5,7 +5,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  color: #8E716A;
+  color: $brown;
 
   .rest-info {
     text-align: center;
@@ -71,7 +71,7 @@
           padding: 15px;
           width: 100%;
           text-align: center;
-          color: #8E716A;
+          color: $brown;
 
           strong {
             display: block;

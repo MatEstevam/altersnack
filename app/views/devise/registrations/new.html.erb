@@ -1,4 +1,4 @@
-<div class="container" data-controller="delivery-fee">
+<div class="container mt-2" data-controller="delivery-fee">
   <h2>Sign up</h2>
 
   <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { multipart: true }) do |f| %>
@@ -19,7 +19,7 @@
     </div>
 
     <div class="form-actions">
-      <%= f.button :submit, "Sign up" %>
+      <%= f.button :submit, "Sign up", class: "btn btn-brown", class: 'btn btn-primary' %>
     </div>
   <% end %>
 
