@@ -36,9 +36,8 @@ body {
   text-align: center;
   border: none;
 
-  &:hover,
-  &:focus {
-    background-color: darken($pink, 10%);
+  &:hover {
+    background-color: darken($pink, 10%) !important;
     border-color: darken($pink, 10%);
   }
 }
@@ -141,4 +140,6 @@ body {
   }
 }
 
-
+.btn-red{
+  color: $red;
+}
