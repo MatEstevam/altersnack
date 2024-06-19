@@ -1,6 +1,6 @@
 body {
   background-color: #fdfdfc;
-  color: #8E716A;
+  color: $brown;
 }
 
 .filters {
@@ -24,7 +24,7 @@ body {
 
 .btn-circle {
   background-color: $pink;
-  color: #8E716A;
+  color: $brown;
   border-color: $pink;
   width: 120px;
   height: 120px;
@@ -142,4 +142,32 @@ body {
 
 .btn-red{
   color: $red;
+}
+
+.alert {
+  position: fixed;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90%;
+  height: fit-content;
+  max-width: 500px;
+  z-index: 1000;
+  border: 1px solid transparent;
+  border-radius: 5px;
+  text-align: center;
+  background-color: $brown;
+  color: #fff;
+}
+
+.btn-primary {
+  border-radius: 4px;
+  color: #fff;
+  &:hover{
+    color: $brown;
+  }
+}
+.btn-secondary {
+  border-radius: 4px;
+  border: none;
 }
