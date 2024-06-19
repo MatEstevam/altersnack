@@ -19,8 +19,10 @@
     <% @user.products.each do |product| %>
       <% product.orders.group_by { |order| order.created_at.to_i }.each do |timestamp, orders| %>
         <h3>Order placed on: <%= l(Time.at(timestamp), format: :short) %></h3>
-        <% if orders.first&.cart_item&.product&.user %>
-          <h4><%= link_to orders.first.cart_item.product.user.name, restaurant_path(orders.first.cart_item.product.user) %></h4>
+        <% if orders.first&.cart&.cart_items&.first&.product&.user %>
+          <h4>
+            <%= link_to orders.first.cart.cart_items.first.product.user.name, user_path(orders.first.cart.cart_items.first.product.user) %>
+          </h4>
         <% end %>
         <table class="table table-responsive">
           <thead>
@@ -34,26 +36,28 @@
           </thead>
           <tbody>
             <% orders.each do |order| %>
-              <% if order.cart_item&.product.present? %>
-                <tr>
-                  <td><%= order.cart_item.product.name %></td>
-                  <td><%= order.cart_item.quantity %></td>
-                  <td><%= number_to_currency(order.cart_item.price) %></td>
-                  <td><%= number_to_currency(order.cart_item.price * order.cart_item.quantity) %></td>
-                  <td><%= link_to order.user.name, user_path(order.user) %></td>
-                </tr>
+              <% order.cart.cart_items.each do |cart_item| %>
+                <% if cart_item.product.present? %>
+                  <tr>
+                    <td><%= cart_item.product.name %></td>
+                    <td><%= cart_item.quantity %></td>
+                    <td><%= number_to_currency(cart_item.product.price) %></td>
+                    <td><%= number_to_currency(cart_item.product.price * cart_item.quantity) %></td>
+                    <td><%= link_to order.user.name, user_path(order.user) %></td>
+                  </tr>
+                <% end %>
               <% end %>
             <% end %>
           </tbody>
           <tfoot>
-            <% if orders.any? && orders.first.cart_item&.product&.user %>
+            <% if orders.any? && orders.first.cart.cart_items&.first&.product&.user %>
               <tr>
                 <td colspan="3">Delivery Fee:</td>
-                <td colspan="2"><%= number_to_currency(orders.first.cart_item.product.user.delivery_fee || 0) %></td>
+                <td colspan="2"><%= number_to_currency(orders.first.cart.cart_items.first.product.user.delivery_fee || 0) %></td>
               </tr>
               <tr>
                 <td colspan="3"><strong>Grand Total:</strong></td>
-                <td colspan="2"><strong><%= number_to_currency(orders.sum { |o| o.cart_item.price * o.cart_item.quantity } + (orders.first.cart_item.product.user.delivery_fee || 0)) %></strong></td>
+                <td colspan="2"><strong><%= number_to_currency(orders.sum { |o| o.cart.cart_items.sum { |item| item.product.price * item.quantity } } + (orders.first.cart.cart_items.first.product.user.delivery_fee || 0)) %></strong></td>
               </tr>
             <% end %>
           </tfoot>
@@ -73,8 +77,10 @@
     <h2 class="mt-4">Purchases Made</h2>
     <% @user.orders.group_by { |order| order.created_at.to_i }.each do |timestamp, orders| %>
       <h3>Order placed on: <%= l(Time.at(timestamp), format: :short) %></h3>
-      <% if orders.first&.cart_item&.product&.user %>
-        <h4><%= link_to orders.first.cart_item.product.user.name, restaurant_path(orders.first.cart_item.product.user) %></h4>
+      <% if orders.first&.cart&.cart_items&.first&.product&.user %>
+        <h4>
+          <%= link_to orders.first.cart.cart_items.first.product.user.name, user_path(orders.first.cart.cart_items.first.product.user) %>
+        </h4>
       <% end %>
       <table class="table table-responsive">
         <thead>
@@ -87,25 +93,27 @@
         </thead>
         <tbody>
           <% orders.each do |order| %>
-            <% if order.cart_item&.product.present? %>
-              <tr>
-                <td><%= order.cart_item.product.name %></td>
-                <td><%= order.cart_item.quantity %></td>
-                <td><%= number_to_currency(order.cart_item.price) %></td>
-                <td><%= number_to_currency(order.cart_item.price * order.cart_item.quantity) %></td>
-              </tr>
+            <% order.cart.cart_items.each do |cart_item| %>
+              <% if cart_item.product.present? %>
+                <tr>
+                  <td><%= cart_item.product.name %></td>
+                  <td><%= cart_item.quantity %></td>
+                  <td><%= number_to_currency(cart_item.product.price) %></td>
+                  <td><%= number_to_currency(cart_item.product.price * cart_item.quantity) %></td>
+                </tr>
+              <% end %>
             <% end %>
           <% end %>
         </tbody>
         <tfoot>
-          <% if orders.any? && orders.first.cart_item&.product&.user %>
+          <% if orders.any? && orders.first.cart.cart_items&.first&.product&.user %>
             <tr>
               <td colspan="3">Delivery Fee:</td>
-              <td colspan="2"><%= number_to_currency(orders.first.cart_item.product.user.delivery_fee || 0) %></td>
+              <td colspan="2"><%= number_to_currency(orders.first.cart.cart_items.first.product.user.delivery_fee || 0) %></td>
             </tr>
             <tr>
               <td colspan="3"><strong>Grand Total:</strong></td>
-              <td colspan="2"><strong><%= number_to_currency(orders.sum { |o| o.cart_item.price * o.cart_item.quantity } + (orders.first.cart_item.product.user.delivery_fee || 0)) %></strong></td>
+              <td colspan="2"><strong><%= number_to_currency(orders.sum { |o| o.cart.cart_items.sum { |item| item.product.price * item.quantity } } + (orders.first.cart.cart_items.first.product.user.delivery_fee || 0)) %></strong></td>
             </tr>
           <% end %>
         </tfoot>
