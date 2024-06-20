@@ -24,7 +24,7 @@ class CartPolicy < ApplicationPolicy
     user.present?
   end
 
-  def remove_product?
+  def remove_from_cart?
     show?
   end
 end
