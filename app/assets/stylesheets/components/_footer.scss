@@ -18,7 +18,7 @@ body {
   background: #D7A298;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   height: 60px; /* Altura fixa do footer */
   width: 100%; /* Largura total da tela */
   padding: 0px 50px;
@@ -32,6 +32,7 @@ body {
 .footer-links {
   display: flex;
   align-items: center;
+  justify-content: space-between;
 }
 
 .footer-links a {

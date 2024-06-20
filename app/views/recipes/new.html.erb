@@ -1,6 +1,8 @@
-<%= simple_form_for @recipe, url: generate_recipe_path do |f|  %>
-  <%= f.input :name %>
-  <%= f.input :ingredients %>
-  <%= f.submit 'Submit', class: 'btn btn-primary' %>
-  <%= link_to "Back", recipes_path %>
-<% end %>
+<div class="container mt-2">
+  <%= simple_form_for @recipe, url: generate_recipe_path do |f|  %>
+    <%= f.input :name %>
+    <%= f.input :ingredients, label: 'Description' %>
+    <%= f.submit 'Submit', class: 'btn btn-primary' %>
+    <%= link_to "Back", recipes_path, class: 'btn btn-secondary'%>
+  <% end %>
+</div>
