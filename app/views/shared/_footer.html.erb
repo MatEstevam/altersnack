@@ -1,13 +1,20 @@
 <div class="footer">
   <div class="footer-links">
-    <a href="#"><i class="fab fa-instagram"></i></a>
-    <a href="#"><i class="fab fa-facebook"></i></a>
+    <%= link_to restaurants_path, class: "dropdown-item" do %>
+      <i class="fa-solid fa-utensils"></i>
+    <% end %>
+    <%= link_to recipes_path, class: "dropdown-item" do %>
+      <i class="fa-solid fa-book"></i>
+    <% end %>
     <%= link_to cart_path, class: "dropdown-item" do %>
       <i class="fa fa-cart-shopping"></i>
+    <% end %>
+    <%= link_to user_path(current_user), class: "dropdown-item" do %>
+      <i class="fa-solid fa-user"></i>
     <% end %>
   </div>
 
   <div class="footer-copyright">
-    
+
   </div>
 </div>

@@ -1,3 +1,33 @@
-<%= @recipe.name %>
-<%= @recipe.ingredients %>
-<%= @recipe.content %>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Detalhes da Receita</title>
+</head>
+<body>
+  <div class="container">
+    <div class="card">
+      <h2 class="card-title">Recipe's Name</h2>
+      <p class="card-text"><%= @recipe.name %></p>
+    </div>
+
+    <div class="card">
+      <h2 class="card-title">Ingredients</h2>
+      <p class="card-text"><%= @recipe.ingredients %></p>
+    </div>
+
+    <% if @recipe.content.present? %>
+      <div class="card">
+        <h2 class="card-title">Recipe</h2>
+        <p class="card-text"><%= @recipe.content %></p>
+      </div>
+    <% end %>
+
+    <% if current_page?(preview_recipe_path) %>
+      <%= button_to "Save recipe", recipes_path(recipe: @recipe) %>
+    <% end %>
+    <%= link_to "Back", recipes_path %>
+  </div>
+</body>
+</html>

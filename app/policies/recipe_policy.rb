@@ -7,9 +7,9 @@ class RecipePolicy < ApplicationPolicy
 
   class Scope < ApplicationPolicy::Scope
     # NOTE: Be explicit about which records you allow access to!
-    # def resolve
-    #   scope.all
-    # end
+    def resolve
+      scope.where(user:)
+    end
   end
   def new?
     user.present?
@@ -20,6 +20,18 @@ class RecipePolicy < ApplicationPolicy
   end
 
   def show?
+    user.present?
+  end
+
+  # def toggle_favorite?
+  #   user.present?
+  # end
+
+  def generate?
+    user.present?
+  end
+
+  def preview?
     user.present?
   end
 end
