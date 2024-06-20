@@ -7,7 +7,9 @@
 
     <% if @recipe.content.present? %>
         <h3 class="card-title my-2">Recipe</h3>
-        <p class="card-text"><%= @recipe.content %></p>
+        <% @recipe.content.split("\n").each do |line| %>
+          <p class="card-text"><%= line %></p>
+        <% end %>
     <% end %>
 
     <% if current_page?(preview_recipe_path) %>
