@@ -1,12 +1,12 @@
 <div class="container">
-  <div class="show-recipes mt-2">
+  <div class="show-recipe mt-2">
       <h1 class="card-title"><%= @recipe.name.capitalize %></h1>
 
-      <h3 class="card-title">Description: </h3>
+      <h3 class="card-title my-2">Description: </h3>
       <p class="card-text"><%= @recipe.ingredients %></p>
 
     <% if @recipe.content.present? %>
-        <h2 class="card-title">Recipe</h2>
+        <h3 class="card-title my-2">Recipe</h3>
         <p class="card-text"><%= @recipe.content %></p>
     <% end %>
 
