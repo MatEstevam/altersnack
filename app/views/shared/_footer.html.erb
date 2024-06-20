@@ -1,26 +1,30 @@
 <div class="footer">
-  <div class="footer-links">
-    <%= link_to restaurants_path, class: "dropdown-item" do %>
-      <i class="fa-solid fa-utensils"></i>
-    <% end %>
-    <%= link_to recipes_path, class: "dropdown-item" do %>
-      <i class="fa-solid fa-book"></i>
-    <% end %>
-    <%= link_to cart_path, class: "dropdown-item" do %>
-      <i class="fa fa-cart-shopping"></i>
-    <% end %>
-    <% if current_user %>
-      <%= link_to user_path(current_user), class: "dropdown-item" do %>
-        <i class="fa-solid fa-user"></i>
+  <div class="footer-links row w-100">
+    <div class="col-3">
+      <%= link_to restaurants_path, class: "dropdown-item" do %>
+        <i class="fa-solid fa-utensils"></i>
       <% end %>
-    <% else %>
-      <%= link_to new_user_session_path, class: "dropdown-item" do %>
-        <i class="fa-solid fa-user"></i>
+    </div>
+    <div class="col-3">
+      <%= link_to recipes_path, class: "dropdown-item" do %>
+        <i class="fa-solid fa-book"></i>
       <% end %>
-    <% end %>
-  </div>
-
-  <div class="footer-copyright">
-
+    </div>
+    <div class="col-3">
+      <%= link_to cart_path, class: "dropdown-item" do %>
+        <i class="fa fa-cart-shopping"></i>
+      <% end %>
+    </div>
+    <div class="col-3">
+      <% if current_user %>
+        <%= link_to user_path(current_user), class: "dropdown-item" do %>
+          <i class="fa-solid fa-user"></i>
+        <% end %>
+      <% else %>
+        <%= link_to new_user_session_path, class: "dropdown-item" do %>
+          <i class="fa-solid fa-user"></i>
+        <% end %>
+      <% end %>
+    </div>
   </div>
 </div>
