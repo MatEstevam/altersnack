@@ -1,0 +1,6 @@
+<%= simple_form_for @recipe, url: generate_recipe_path do |f|  %>
+  <%= f.input :name %>
+  <%= f.input :ingredients %>
+  <%= f.submit 'Submit', class: 'btn btn-primary' %>
+  <%= link_to "Back", recipes_path %>
+<% end %>

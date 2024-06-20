@@ -31,4 +31,7 @@ Rails.application.routes.draw do
 
   resources :recipes
 
+  post 'generate_recipe', to: 'recipes#generate', as: :generate_recipe
+
+  get 'preview_recipe', to: 'recipes#preview', as: :preview_recipe
 end
