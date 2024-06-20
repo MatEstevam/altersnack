@@ -6,15 +6,15 @@
   <% end %>
 
   <% if @user.restaurant %>
-    <h1>Restaurant Profile</h1>
+    <h1>Profile</h1>
     <div id="restaurant-profile">
-      <h2><strong>Restaurant Name:</strong> <%= @user.name %></h2>
+      <h2><strong>Restaurant Name:</strong> <%= @user.name.capitalize %></h2>
       <p><strong>Location:</strong> <%= @user.address %></p>
     </div>
   <% else %>
-    <h1>User Profile</h1>
+    <h1>Profile</h1>
     <div id="user-profile">
-      <h2><strong>Name:</strong> <%= @user.name %></h2>
+      <h2><strong>Name:</strong> <%= @user.name.capitalize %></h2>
       <p><strong>Email:</strong> <%= @user.email %></p>
     </div>
   <% end %>
