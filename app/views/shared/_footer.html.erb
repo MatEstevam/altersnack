@@ -9,8 +9,14 @@
     <%= link_to cart_path, class: "dropdown-item" do %>
       <i class="fa fa-cart-shopping"></i>
     <% end %>
-    <%= link_to user_path(current_user), class: "dropdown-item" do %>
-      <i class="fa-solid fa-user"></i>
+    <% if current_user %>
+      <%= link_to user_path(current_user), class: "dropdown-item" do %>
+        <i class="fa-solid fa-user"></i>
+      <% end %>
+    <% else %>
+      <%= link_to new_user_session_path, class: "dropdown-item" do %>
+        <i class="fa-solid fa-user"></i>
+      <% end %>
     <% end %>
   </div>
 
