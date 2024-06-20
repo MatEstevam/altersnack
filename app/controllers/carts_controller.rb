@@ -1,6 +1,7 @@
 class CartsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_cart
+  skip_after_action :verify_authorized, only: [:remove_from_cart]
 
   def show
     authorize @cart
@@ -44,9 +45,10 @@ class CartsController < ApplicationController
   # end
 
   def remove_from_cart
-    @product = Product.find(params[:id])
+    @cart_item = @cart.cart_items.find(params[:id])
     flash[:notice] = 'Product removed from cart.'
-    redirect_to cart_path
+    @cart_item.destroy
+    redirect_to restaurant_path
   end
 
   private
