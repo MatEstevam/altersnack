@@ -24,8 +24,6 @@ class RestaurantsController < ApplicationController
           @users = @users.joins(products: :product_restrictions)
                          .where(product_restrictions: { restriction_id: filter_map[params[:filter]] })
                          .distinct
-        else
-          @restaurants = Restaurant.all
         end
       end
     else
