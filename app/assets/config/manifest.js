@@ -4,3 +4,6 @@
 //= link_tree ../../../vendor/javascript .js
 //= link popper.js
 //= link bootstrap.min.js
+//= link controllers/delivery_fee_controller.js
+//= require rails-ujs
+//= require_tree .

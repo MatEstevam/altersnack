@@ -56,6 +56,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_19_191304) do
     t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "price_cents", default: 0, null: false
     t.index ["user_id"], name: "index_carts_on_user_id"
   end
 
@@ -67,6 +68,10 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_19_191304) do
     t.decimal "price", precision: 10, scale: 2, default: "0.0", null: false
     t.integer "quantity", default: 1, null: false
     t.bigint "cart_item_id"
+    t.integer "amount_cents", default: 0, null: false
+    t.string "state"
+    t.string "checkout_session_id"
+    t.bigint "cart_id"
     t.index ["cart_item_id"], name: "index_orders_on_cart_item_id"
     t.index ["product_id"], name: "index_orders_on_product_id"
     t.index ["user_id"], name: "index_orders_on_user_id"

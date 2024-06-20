@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container mt-2">
   <h1>Confirm Your Order</h1>
 
   <% if @cart.cart_items.any? %>
@@ -41,7 +41,8 @@
       </tfoot>
     </table>
 
-    <%= form_with(model: @order, local: true) do |form| %>
+    <%= simple_form_for @order do |form| %>
+      <%= form.input :cart_id, input_html: { hidden: true,  value: @cart.id } %>
       <div class="actions">
         <%= form.submit "Place Order", class: "btn btn-primary" %>
       </div>

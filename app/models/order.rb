@@ -1,8 +1,9 @@
 class Order < ApplicationRecord
   belongs_to :user
-  belongs_to :cart_item
+  belongs_to :cart
 
-  validates :user_id, :cart_item_id, :quantity, :price, presence: true
+  validates :user_id, :quantity, presence: true
+  monetize :amount_cents
 
   def total_price
     price * quantity

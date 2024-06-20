@@ -1,7 +1,7 @@
 class CartItem < ApplicationRecord
   belongs_to :cart
   belongs_to :product
-  has_many :orders, dependent: :destroy
+  #has_many :orders, dependent: :destroy
 
   validates :quantity, presence: true, numericality: { greater_than_or_equal_to: 0 }
 

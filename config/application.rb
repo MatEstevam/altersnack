@@ -8,6 +8,8 @@ Bundler.require(*Rails.groups)
 
 module Altersnack
   class Application < Rails::Application
+    config.hosts << "fifty-coats-lose.loca.lt"
+    config.autoload_paths += %W(#{config.root}/app/services)
     config.action_controller.raise_on_missing_callback_actions = false if Rails.version >= "7.1.0"
     config.generators do |generate|
       generate.assets false
@@ -32,3 +34,5 @@ module Altersnack
     config.assets.initialize_on_precompile = false
     end
 end
+
+
