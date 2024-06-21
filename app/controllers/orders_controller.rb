@@ -16,7 +16,7 @@ class OrdersController < ApplicationController
       payment_method_types: ['card'],
       line_items: [{
         price_data: {
-          currency: 'brl',
+          currency: 'usd',
           unit_amount: (cart.total_price * 100).to_i,
           product_data: {
             name: "Order test"
